@@ -1,0 +1,41 @@
+{% load helpers i18n markdown_extras %}
+
+<div class="col-md-8 card mb-4 mt-3 left top">
+  <div class="card-body">
+    {% for message in messages %}
+    <div
+      class="alert alert-{{ message.tags }}"
+      role="alert"
+    >
+      {{ message | markdown | safe }}
+    </div>
+    {% endfor %}
+    {% has_success_message messages as has_success %}
+    {% if not has_success %}
+    <form action="." method="post">
+      {% csrf_token %}
+      {% for field in form %}
+      <div class="mb-2{% if field.field.widget.input_type == 'checkbox' %} form-check form-switch{% endif %}">
+        {% if field.label %}
+        <label
+          class="form-label"
+          for="{{ field.id_for_label }}"
+        >{{ field.label }}{% if field.field.widget.input_type != 'checkbox' %}:{% endif %}
+        </label>
+        {% endif %}
+        {{ field }}
+        <span class="text-muted">
+          {{ field.help_text }}
+        </span>
+        {{ field.errors }}
+      </div>
+      {% endfor %}
+      <div class="d-grid">
+        <button class="btn btn-primary btn-lg" id="submit-button" type="submit">
+          {% if submit_button_text %}{{ submit_button_text }}{% else %}{% trans "Submit!" %}{% endif %}
+        </button>
+      </div>
+    </form>
+    {% endif %}
+  </div>
+</div>

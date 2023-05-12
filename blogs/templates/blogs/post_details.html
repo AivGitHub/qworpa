@@ -1,0 +1,16 @@
+{% extends 'accounts/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+{% if post.title %}{{ post.title|truncatewords:1 }}{% else %}{% trans "No content found" %}{% endif %} |
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-8 mb-4 mt-3 left top">
+    {% include "blogs/includes/post_col.html" with post=post is_detailed=True %}
+  </div>
+  {% block sidebar %}{% include 'accounts/includes/sidebar.html' %}{% endblock sidebar %}
+</div>
+{% endblock content %}

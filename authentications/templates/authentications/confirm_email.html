@@ -1,0 +1,24 @@
+{% extends 'accounts/base.html' %}
+
+{% load i18n markdown_extras %}
+
+{% block title %}{% trans "Activate account" %} | {% endblock %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4 mt-3 left top">
+      <div class="card-body">
+        {% for message in messages %}
+        <div
+          class="alert alert-{{ message.tags }}"
+          role="alert"
+        >
+          {{ message | markdown | safe }}
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

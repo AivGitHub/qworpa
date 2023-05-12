@@ -1,0 +1,75 @@
+{% load blogs_helpers i18n markdown_extras %}
+
+<div class="card mb-4">
+  <div class="card-body">
+    {% if post %}
+    <div class="d-flex justify-content-between">
+      <div>
+      {% if is_detailed %}
+      <h1 class="card-title m-0">{{ post.title }}</h1>
+      {% else %}
+      <a
+        href="{% url 'post-details' post.url_hex  %}"
+      >
+        <h1 class="card-title">{{ post.title }}</h1>
+      </a>
+      {% endif %}
+      </div>
+      {% if user.is_authenticated and user == post.author %}
+      <div>
+        <a href="{% url 'edit-post' post.url_hex %}" class="h4"><i class="bi bi-pencil-square"></i></a>
+        <a href="#" class="delete-post h4 text-danger" data-url-hex="{{ post.url_hex }}">
+          {% csrf_token %}
+          <i class="bi bi-trash"></i>
+        </a>
+      </div>
+      {% endif %}
+    </div>
+    {% if post.category %}
+    <p>
+      <span class="badge rounded-pill bg-secondary">{{ post.category }}</span>
+    </p>
+    {% endif %}
+    <p class="text-muted">
+      {{ post.author.first_name }} {{ post.author.last_name.0 }}. | {{ post.created_at }}{% if post.is_draft %} | {% trans "(Draft)" %}{% endif %}
+    </p>
+    {% if is_detailed %}
+    <p class="card-text">{{ post.content | markdown | safe }}</p>
+    {% else %}
+    <p class="card-text">{{ post.content | markdown | safe | slice:":200" }}</p>
+    {% endif %}
+    {% if not is_detailed %}
+    <p>
+      <a
+        href="{% url 'post-details' post.url_hex  %}"
+        class="btn btn-info"
+      >
+        {% trans "Read More" %} &rarr;
+      </a>
+    </p>
+    {% endif %}
+    <p>
+    {% user_has_liked_post post user as has_liked_post %}
+    {% with likes_count=post.likes.count %}
+    <button
+      type="button"
+      class="post-like-toggler btn btn-{% if has_liked_post %}dark{% else %}light{% endif %}"
+      data-mdb-ripple-color="dark"
+      data-url-hex="{{ post.url_hex }}"
+      data-has-liked="{{ has_liked_post }}"
+      {% if not user.is_authenticated %} disabled{% endif %}
+    >
+      {% csrf_token %}
+      <i class="bi bi-hand-thumbs-up"></i>
+      <span class="likes-amount{% if not likes_count %} d-none{% endif %}">{{ likes_count }}</span>
+    </button>
+    {% endwith %}
+    </p>
+    {% else %}
+    <h1>
+      {% trans "Thanks for reaching me" %}
+    </h1>
+    {% trans "Hmm, could not find any content!" %}
+    {% endif %}
+  </div>
+</div>

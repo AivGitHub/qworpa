@@ -1,0 +1,64 @@
+{% load helpers i18n %}
+
+{% if page_obj.has_other_pages %}
+<nav>
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+      {% define_value page_obj.previous_page_number as previous_page_number %}
+    {% else %}
+      {% define_value 1 as previous_page_number %}
+    {% endif %}
+    <li class="page-item">
+      <a
+        class="page-link btn{% if not page_obj.has_previous %} disabled{% endif %}"
+        href="?page=1"
+      >
+        {% trans "First" %}
+      </a>
+    </li>
+    <li class="page-item">
+      <a
+        class="page-link btn{% if not page_obj.has_previous %} disabled{% endif %}"
+        href="?page={{ previous_page_number }}"
+      >
+        {% trans "Previous" %}
+      </a>
+    </li>
+    {% for page_number in page_obj.paginator.page_range %}
+    {% if page_number <= page_obj.number|add:3 and page_number >= page_obj.number|add:-3 %}
+    <li
+      class="page-item{% if page_obj.number == page_number %} active{% endif %}"
+    >
+      <a
+        class="page-link btn{% if page_obj.number == page_number %} disabled{% endif %}"
+        href="?page={{ page_number }}"
+      >
+        {{ page_number }}
+      </a>
+    </li>
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+      {% define_value page_obj.next_page_number as next_page_number %}
+    {% else %}
+      {% define_value 1 as next_page_number %}
+    {% endif %}
+    <li class="page-item">
+      <a
+        class="page-link btn{% if not page_obj.has_next %} disabled{% endif %}"
+        href="?page={{ next_page_number }}"
+      >
+        {% trans "Next" %}
+      </a>
+    </li>
+    <li class="page-item">
+      <a
+        class="page-link btn{% if not page_obj.has_next %} disabled{% endif %}"
+        href="?page={{ page_obj.paginator.num_pages }}"
+      >
+        {% trans "Last" %}
+      </a>
+    </li>
+  </ul>
+</nav>
+{% endif %}

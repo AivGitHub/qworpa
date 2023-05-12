@@ -1,0 +1,12 @@
+{% extends 'accounts/base.html' %}
+
+{% load helpers i18n %}
+
+{% block title %}{% if page_title %}{{ page_title }}{% else %}{% trans "Create post" %}{% endif %} | {% endblock %}
+
+{% block content %}
+<div class="row">
+  {% include "accounts/includes/form_col.html" with form=form %}
+  {% block sidebar %}{% include 'accounts/includes/sidebar.html' %}{% endblock sidebar %}
+</div>
+{% endblock content %}

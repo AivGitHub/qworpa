@@ -1,0 +1,18 @@
+{% load i18n helpers %}
+
+<p>
+  {% trans "Hello" %} {{ user.username }},
+</p>
+<p>
+  {% trans "Thank you for the registration, to confirm that account belongs to you click the link below:" %}
+</p>
+<p>
+  <a href="{{ sign_in_url }}">
+    {{ sign_in_url }}
+  </a><br />
+  {% trans "If clicking the link above doesn't work, copy and paste the URL in a new browser window instead." %}
+</p>
+<p>
+  {% translate "Sincerely," %}<br />
+  {% get_setting 'PROJECT_NAME' %} {% translate "Team" %}
+</p>

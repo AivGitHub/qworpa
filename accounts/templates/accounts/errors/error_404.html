@@ -1,0 +1,30 @@
+{% extends 'accounts/base.html' %}
+{% load i18n %}
+
+{% block content %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 card mb-4 mt-3 left top">
+      <div class="card-body">
+        <h1>
+          {% trans "Page not found" %}
+        </h1>
+        <p class="card-text ">{% trans "Oops. looks like you took the wrong turn." %}</p>
+      </div>
+    </div>
+    {% block sidebar %}{% include 'accounts/includes/sidebar.html' %}{% endblock sidebar %}
+  </div>
+  <div class="row">
+    <ul class="pagination justify-content-center">
+      <li>
+        <a
+          href="{% if request.META.HTTP_REFERER %}{{ request.META.HTTP_REFERER }}{% else %}{% url 'post-list' %}{% endif %}"
+          class="btn btn-warning"
+        >
+          &laquo; {% trans "Go back" %}
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+{% endblock content %}
