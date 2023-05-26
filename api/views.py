@@ -1,7 +1,8 @@
 from django.core.exceptions import PermissionDenied
 from django.utils.datastructures import MultiValueDictKeyError
-from rest_framework import serializers, status
+from rest_framework import generics, serializers, status
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
@@ -150,3 +151,35 @@ def add_post_comment(request, *args, **kwargs):
     post = process_add_post_comment(request, kwargs)
     serializer = PostCommentResponseSerializer(post)
     return Response(serializer.data, status.HTTP_200_OK)
+
+
+class Pagination(PageNumberPagination):
+    page_size = 10
+    page_size_query_param = 'page_size'
+    max_page_size = 50
+    page_query_param = 'p'
+
+
+class PostCommentsView(generics.ListAPIView):
+    serializer_class = PostCommentResponseSerializer
+    page_size_query_param = 'page_size'
+    pagination_class = Pagination
+
+    def get_queryset(self):
+        post = _get_post_from_payload(self.kwargs, self.request.user)
+        return post.comments.filter()
+
+
+class PostNestedCommentsView(generics.ListAPIView):
+    serializer_class = PostCommentResponseSerializer
+    page_size_query_param = 'page_size'
+    pagination_class = Pagination
+
+    def get_queryset(self):
+        comment_id = self.kwargs['comment_id']
+        post = _get_post_from_payload(self.kwargs, self.request.user)
+        try:
+            parent_comment = post.comments.get(id=comment_id)
+        except PostComment.DoesNotExist:
+            raise PermissionDenied()
+        return parent_comment.nested_comments.all()
