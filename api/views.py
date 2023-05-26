@@ -1,5 +1,6 @@
 from django.core.exceptions import PermissionDenied
-from rest_framework import status
+from django.utils.datastructures import MultiValueDictKeyError
+from rest_framework import serializers, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -86,3 +87,66 @@ def process_toggle_post_comment_like(user: User, payload: dict):
 def toggle_post_comment_like(request, *args, **kwargs):
     process_toggle_post_comment_like(request.user, kwargs)
     return Response(status=status.HTTP_200_OK)
+
+
+def _get_comment_body_from_request(request):
+    try:
+        return request.POST['content']
+    except MultiValueDictKeyError:
+        raise PermissionDenied()
+
+
+def _get_parent_comment(request):
+    try:
+        comment_id = request.POST['parent_comment_id']
+    except MultiValueDictKeyError:
+        return None
+    try:
+        return PostComment.objects.get(id=comment_id)
+    except PostComment.DoesNotExist:
+        raise PermissionDenied()
+
+
+def process_add_post_comment(request, payload: dict):
+    content = _get_comment_body_from_request(request)
+    post = _get_post_from_payload(payload, request.user)
+    args = dict(post=post, author=request.user, content=content)
+
+    parent_comment = _get_parent_comment(request)
+    if parent_comment is not None:
+        args.update(parent=parent_comment)
+    return PostComment.objects.create(**args)
+
+
+class PostCommentResponseSerializer(serializers.ModelSerializer):
+    url_hex = serializers.CharField(source='post.url_hex')
+    likes_amount = serializers.SerializerMethodField(read_only=True)
+    author = serializers.SerializerMethodField()
+
+    def get_author(self, post):
+        return {
+            'full_name': post.author.get_full_name(),
+        }
+
+    def get_likes_amount(self, post):
+        return post.likes.count()
+
+    class Meta:
+        model = PostComment
+        fields = (
+            'id',
+            'url_hex',
+            'parent',
+            'created_at',
+            'likes_amount',
+            'content',
+            'author',
+        )
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def add_post_comment(request, *args, **kwargs):
+    post = process_add_post_comment(request, kwargs)
+    serializer = PostCommentResponseSerializer(post)
+    return Response(serializer.data, status.HTTP_200_OK)

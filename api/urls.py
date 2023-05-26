@@ -1,6 +1,6 @@
 from django.urls import path
 
-from api.views import delete_post, toggle_post_comment_like, toggle_post_like
+from api.views import add_post_comment, delete_post, toggle_post_comment_like, toggle_post_like
 
 urlpatterns = [
     path('v1/posts/<str:url_hex>/likes/toggle/', toggle_post_like, name='toggle-post-like'),
@@ -10,4 +10,5 @@ urlpatterns = [
         toggle_post_comment_like,
         name='toggle-post-comment-like'
     ),
+    path('v1/posts/<str:url_hex>/comments/add/', add_post_comment, name='add-post-comment'),
 ]
