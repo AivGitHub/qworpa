@@ -167,7 +167,7 @@ class PostCommentsView(generics.ListAPIView):
 
     def get_queryset(self):
         post = _get_post_from_payload(self.kwargs, self.request.user)
-        return post.comments.filter()
+        return post.comments.all().order_by('-id')
 
 
 class PostNestedCommentsView(generics.ListAPIView):
