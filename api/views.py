@@ -138,6 +138,8 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
             user = self.context['request'].user
         except KeyError:
             return False
+        if user.is_anonymous:
+            return False
         try:
             post.likes.get(user=user)
         except PostCommentLike.DoesNotExist:
