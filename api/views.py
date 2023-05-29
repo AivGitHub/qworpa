@@ -124,6 +124,7 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
     likes_amount = serializers.SerializerMethodField(read_only=True)
     author = serializers.SerializerMethodField()
     has_liked = serializers.SerializerMethodField()
+    has_add_permission = serializers.SerializerMethodField()
 
     def get_author(self, post):
         return {
@@ -146,6 +147,15 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
             return False
         return True
 
+    def get_has_add_permission(self, post):
+        try:
+            user = self.context['request'].user
+        except KeyError:
+            return False
+        if user.is_anonymous:
+            return False
+        return True
+
     class Meta:
         model = PostComment
         fields = (
@@ -157,6 +167,7 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
             'content',
             'author',
             'has_liked',
+            'has_add_permission',
         )
 
 
