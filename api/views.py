@@ -176,9 +176,21 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
         )
 
 
+class PostCommentRequestSerializer(serializers.ModelSerializer):
+    content = serializers.CharField(min_length=3, max_length=256)
+
+    class Meta:
+        model = PostComment
+        fields = (
+            'content',
+        )
+
+
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def add_post_comment(request, *args, **kwargs):
+    serializer_request = PostCommentRequestSerializer(data=request.POST)
+    serializer_request.is_valid(raise_exception=True)
     post = process_add_post_comment(request, kwargs)
     serializer = PostCommentResponseSerializer(post, context={'request': request})
     return Response(serializer.data, status.HTTP_200_OK)
