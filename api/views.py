@@ -123,6 +123,7 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
     url_hex = serializers.CharField(source='post.url_hex')
     likes_amount = serializers.SerializerMethodField(read_only=True)
     author = serializers.SerializerMethodField()
+    has_liked = serializers.SerializerMethodField()
 
     def get_author(self, post):
         return {
@@ -131,6 +132,17 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
 
     def get_likes_amount(self, post):
         return post.likes.count()
+
+    def get_has_liked(self, post):
+        try:
+            user = self.context['request'].user
+        except KeyError:
+            return False
+        try:
+            post.likes.get(user=user)
+        except PostCommentLike.DoesNotExist:
+            return False
+        return True
 
     class Meta:
         model = PostComment
@@ -142,6 +154,7 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
             'likes_amount',
             'content',
             'author',
+            'has_liked',
         )
 
 
@@ -149,7 +162,7 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
 @permission_classes([IsAuthenticated])
 def add_post_comment(request, *args, **kwargs):
     post = process_add_post_comment(request, kwargs)
-    serializer = PostCommentResponseSerializer(post)
+    serializer = PostCommentResponseSerializer(post, context={'request': request})
     return Response(serializer.data, status.HTTP_200_OK)
 
 
