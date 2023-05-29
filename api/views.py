@@ -1,3 +1,4 @@
+from django.contrib.humanize.templatetags.humanize import NaturalTimeFormatter
 from django.core.exceptions import PermissionDenied
 from django.utils.datastructures import MultiValueDictKeyError
 from rest_framework import generics, serializers, status
@@ -125,6 +126,10 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
     author = serializers.SerializerMethodField()
     has_liked = serializers.SerializerMethodField()
     has_add_permission = serializers.SerializerMethodField()
+    created_at = serializers.SerializerMethodField()
+
+    def get_created_at(self, post):
+        return NaturalTimeFormatter.string_for(post.created_at)
 
     def get_author(self, post):
         return {
