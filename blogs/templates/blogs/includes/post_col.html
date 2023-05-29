@@ -50,7 +50,7 @@
     {% endif %}
     <p>
     {% user_has_liked_post post user as has_liked_post %}
-    {% with likes_count=post.likes.count %}
+    {% with likes_count=post.likes.count comments_amount=post.comments.count %}
     <button
       type="button"
       class="post-like-toggler btn btn-{% if has_liked_post %}dark{% else %}light{% endif %}"
@@ -63,6 +63,17 @@
       <i class="bi bi-hand-thumbs-up"></i>
       <span class="likes-amount{% if not likes_count %} d-none{% endif %}">{{ likes_count }}</span>
     </button>
+    {% if not is_detailed %}
+    <a
+      href="{% url 'post-details' post.url_hex %}"
+      type="button"
+      class="btn btn-light"
+      data-mdb-ripple-color="dark"
+    >
+      <i class="bi bi-chat-left-dots"></i>
+      <span class="comments{% if not comments_amount %} d-none{% endif %}">{{ comments_amount }}</span>
+    </a>
+    {% endif %}
     {% endwith %}
     </p>
     {% else %}

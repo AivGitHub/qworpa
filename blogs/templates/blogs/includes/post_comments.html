@@ -1,0 +1,123 @@
+{% load i18n static %}
+
+<div class="d-none input-helpers">
+  {% csrf_token %}
+  <input type="hidden" name="postId" value="{{ post.url_hex }}">
+</div>
+
+{% if user.is_authenticated %}
+<div class="card bg-light">
+  <header class="card-header border-0 bg-transparent">
+    <img
+      src="{% static 'accounts/img/avatar.png' %}"
+      class="rounded-circle me-2"
+      height="40"
+    />
+    <a class="fw-semibold text-decoration-none">{{ user.get_full_name }}</a>
+  </header>
+  <div class="card-body py-1">
+    <form class="comment-form">
+      <div>
+        <textarea
+          class="form-control form-control-sm border border-2 rounded-1 comment-form-text"
+          style="height: 50px"
+          placeholder="{% trans 'Add a comment' %}..."
+          minlength="3"
+          maxlength="256"
+          required
+        ></textarea>
+      </div>
+      <footer class="card-footer bg-transparent border-0 text-end">
+        <button class="btn btn-link btn-sm me-2 text-decoration-none" type="reset">
+          {% trans "Cancel" %}
+        </button>
+        <button
+          type="submit"
+          class="btn btn-primary btn-sm"
+        >
+          {% trans "Submit" %}
+        </button>
+      </footer>
+    </form>
+  </div>
+</div>
+{% endif %}
+
+<aside class="d-flex justify-content-between align-items-center my-4">
+  {% with comment_amount=post.comments.count %}
+  <h4 class="h6">
+    {% if comment_amount %}<span id="total-comments-amount">{{ post.comments.count }}</span> {% trans "Comments" %}{% else %}{% trans "No comments yet" %}{% endif %}
+  </h4>
+  {% endwith %}
+</aside>
+
+<div id="post-comment-block">
+  <div class="post-comment-list"></div>
+  <div class="mt-2 comments-progress">
+    <div class="progress">
+      <div
+        class="progress-bar progress-bar-striped progress-bar-animated"
+        role="progressbar"
+        aria-valuenow="50"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        style="width: 50%"
+      ></div>
+    </div>
+  </div>
+  <div class="mt-2 post-comments-loader d-none">
+      <button
+        type="button"
+        class="btn btn-link text-decoration-none ms-2 my-2 load-more-button"
+        data-next-page=""
+      >
+        {% trans "Load more" %}
+      </button>
+  </div>
+</div>
+
+{% block extrascript %}
+<script src="{% static 'blogs/comments.js' %}"></script>
+{% endblock %}
+
+<div class="mt-2 d-none comment-snippet">
+  <article class="card bg-light">
+    <header class="card-header border-0 bg-transparent d-flex align-items-center">
+      <div>
+        <img
+          src="{% static 'accounts/img/avatar.png' %}"
+          class="rounded-circle me-2"
+          height="40"
+        />
+        <a class="fw-semibold text-decoration-none comment-author-full-name">
+        </a>
+        <span class="ms-3 small text-muted comment-created-at"></span>
+      </div>
+    </header>
+    <div class="card-body py-2 px-3 comment-content">
+    </div>
+    <footer class="card-footer bg-white border-0 py-1 px-3">
+      <button
+        type="button"
+        class="btn btn-link btn-sm text-decoration-none ps-0 comment-like-toggler"
+        data-has-liked=""
+        data-comment-id=""
+        data-url-hex=""
+      >
+        <i
+          class="bi"
+        ></i>
+        <span class="comment-likes-amount d-none">0</span>
+      </button>
+      {% comment %}
+      <button
+        type="button"
+        class="btn btn-link btn-sm text-decoration-none"
+      >
+        <i class="bi bi-reply"></i>
+        {% trans "Reply" %}
+      </button>
+      {% endcomment %}
+    </footer>
+  </article>
+</div>

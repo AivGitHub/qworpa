@@ -13,4 +13,9 @@
   </div>
   {% block sidebar %}{% include 'accounts/includes/sidebar.html' %}{% endblock sidebar %}
 </div>
+<div class="row">
+  <div class="col-md-10 mb-4 mt-3 left top">
+    {% include "blogs/includes/post_comments.html" with post=post %}
+  </div>
+</div>
 {% endblock content %}
