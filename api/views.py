@@ -127,6 +127,7 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
     has_liked = serializers.SerializerMethodField()
     has_add_permission = serializers.SerializerMethodField()
     created_at = serializers.SerializerMethodField()
+    has_delete_permission = serializers.SerializerMethodField()
 
     def get_created_at(self, post):
         return NaturalTimeFormatter.string_for(post.created_at)
@@ -161,6 +162,15 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
             return False
         return True
 
+    def get_has_delete_permission(self, post_comment):
+        try:
+            user = self.context['request'].user
+        except KeyError:
+            return False
+        if post_comment.author == user or post_comment.post.author == user:
+            return True
+        return False
+
     class Meta:
         model = PostComment
         fields = (
@@ -173,6 +183,7 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
             'author',
             'has_liked',
             'has_add_permission',
+            'has_delete_permission',
         )
 
 
