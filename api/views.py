@@ -226,3 +226,17 @@ class PostNestedCommentsView(generics.ListAPIView):
         except PostComment.DoesNotExist:
             raise PermissionDenied()
         return parent_comment.nested_comments.all()
+
+
+def process_delete_post_comment(user: User, payload):
+    post_comment: PostComment = _get_comment_from_payload(payload, user)
+    if post_comment.author != user and post_comment.post.author != user:
+        raise PermissionDenied()
+    post_comment.delete()
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def delete_post_comment(request, *args, **kwargs):
+    process_delete_post_comment(request.user, kwargs)
+    return Response(status=status.HTTP_200_OK)

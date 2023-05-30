@@ -3,6 +3,7 @@ from django.urls import path
 from api.views import (
     add_post_comment,
     delete_post,
+    delete_post_comment,
     PostCommentsView,
     PostNestedCommentsView,
     toggle_post_comment_like,
@@ -23,5 +24,10 @@ urlpatterns = [
         'v1/posts/<str:url_hex>/comments/<int:comment_id>/',
         PostNestedCommentsView.as_view(),
         name='nested-comment-list'
+    ),
+    path(
+        'v1/posts/<str:url_hex>/comments/<int:comment_id>/delete/',
+        delete_post_comment,
+        name='delete-post-comment'
     ),
 ]
