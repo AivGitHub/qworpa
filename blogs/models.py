@@ -179,6 +179,11 @@ class PostComment(models.Model):
             raise ValidationError(_('Only one nesting level is allowed'))
         return cleaned_data
 
+    def has_delete_permission(self, user: User):
+        if user.is_anonymous:
+            return False
+        return self.author == user or self.post.author == user
+
     class Meta:
         ordering = ('created_at',)
 
