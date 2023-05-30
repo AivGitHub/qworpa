@@ -51,7 +51,7 @@ def process_delete_post(user: User, payload: dict):
     return Response(status=status.HTTP_200_OK)
 
 
-@api_view(['DELETE'])
+@api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def delete_post(request, *args, **kwargs):
     process_delete_post(request.user, kwargs)

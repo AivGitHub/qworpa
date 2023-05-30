@@ -23,7 +23,7 @@ $(document).ready(function() {
     let postId = button.data("url-hex");
     $.ajax({
       url: `/api/v1/posts/${postId}/delete/`,
-      method: "delete",
+      method: "POST",
       headers: {
         "X-CSRFToken": button.find("input[name='csrfmiddlewaretoken']").val(),
       },
