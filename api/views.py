@@ -129,18 +129,18 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
     created_at = serializers.SerializerMethodField()
     has_delete_permission = serializers.SerializerMethodField()
 
-    def get_created_at(self, post):
-        return NaturalTimeFormatter.string_for(post.created_at)
+    def get_created_at(self, post_comment):
+        return NaturalTimeFormatter.string_for(post_comment.created_at)
 
     def get_author(self, post):
         return {
             'full_name': post.author.get_full_name(),
         }
 
-    def get_likes_amount(self, post):
-        return post.likes.count()
+    def get_likes_amount(self, post_comment):
+        return post_comment.likes.count()
 
-    def get_has_liked(self, post):
+    def get_has_liked(self, post_comment):
         try:
             user = self.context['request'].user
         except KeyError:
@@ -148,12 +148,12 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
         if user.is_anonymous:
             return False
         try:
-            post.likes.get(user=user)
+            post_comment.likes.get(user=user)
         except PostCommentLike.DoesNotExist:
             return False
         return True
 
-    def get_has_add_permission(self, post):
+    def get_has_add_permission(self, post_comment):
         try:
             user = self.context['request'].user
         except KeyError:
