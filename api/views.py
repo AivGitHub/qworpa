@@ -167,9 +167,7 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
             user = self.context['request'].user
         except KeyError:
             return False
-        if post_comment.author == user or post_comment.post.author == user:
-            return True
-        return False
+        return post_comment.has_delete_permission(user)
 
     class Meta:
         model = PostComment
@@ -241,7 +239,7 @@ class PostNestedCommentsView(generics.ListAPIView):
 
 def process_delete_post_comment(user: User, payload):
     post_comment: PostComment = _get_comment_from_payload(payload, user)
-    if post_comment.author != user and post_comment.post.author != user:
+    if not post_comment.has_delete_permission(user):
         raise PermissionDenied()
     post_comment.delete()
 
