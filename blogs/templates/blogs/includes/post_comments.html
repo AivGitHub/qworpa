@@ -80,7 +80,7 @@
 <script src="{% static 'blogs/comments.js' %}"></script>
 {% endblock %}
 
-<div class="mt-2 d-none comment-snippet">
+<div class="comment mt-2 d-none comment-snippet" data-comment-id="">
   <article class="card bg-light">
     <header class="card-header border-0 bg-transparent d-flex align-items-center">
       <div>
@@ -92,6 +92,11 @@
         <a class="fw-semibold text-decoration-none comment-author-full-name">
         </a>
         <span class="ms-3 small text-muted comment-created-at"></span>
+      </div>
+      <div class="ms-auto d-none comment-header-helpers">
+        <a href="#" class="delete-comment h4 text-danger">
+          <i class="bi bi-trash"></i>
+        </a>
       </div>
     </header>
     <div class="card-body py-2 px-3 comment-content">

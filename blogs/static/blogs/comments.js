@@ -84,7 +84,35 @@ function toggleCommentLike() {
   });
 }
 
+function deleteCommentLike(e) {
+  if (confirm("Are you sure you want to delete the comment?") === false) {
+    return;
+  }
+  let inputHelpers = $(".input-helpers");
+  let csrf = inputHelpers.find("input[name='csrfmiddlewaretoken']").val();
+  let postId = inputHelpers.find("input[name='postId']").val();
+  let commentDiv = $(e.target).parent().closest(".comment");
+  let commentId = commentDiv.data("comment-id");
+
+  $.ajax({
+    url: `/api/v1/posts/${postId}/comments/${commentId}/delete/`,
+    method: "post",
+    headers: {
+      "X-CSRFToken": csrf,
+    },
+  }).done(function(comments) {
+    commentDiv.remove();
+  }).fail(function() {
+    alert("Something went wrong! Try again later.");
+  });
+  e.preventDefault();
+}
+
 function populateComment(comment, parentComment, newComment) {
+  if (comment.parent !== null) {
+    // TODO: Update the code, remove parentComment.
+    return;
+  }
   let commentClone = $(".comment-snippet").clone();
   let commentLikeTogglerButton = commentClone.find(".comment-like-toggler")
   let likesAmountSpan = commentClone.find(".comment-likes-amount");
@@ -96,11 +124,16 @@ function populateComment(comment, parentComment, newComment) {
   commentClone.find(".comment-created-at").text(comment.created_at);
   commentClone.find(".comment-content").text(comment.content);
   commentLikeTogglerButton[0].addEventListener("click", toggleCommentLike);
+  commentClone.find(".delete-comment")[0].addEventListener("click", deleteCommentLike);
   if (comment.has_add_permission == false) {
     commentLikeTogglerButton.prop("disabled", true);
   }
+  if (comment.has_delete_permission == true) {
+    commentClone.find(".comment-header-helpers").removeClass("d-none");
+  }
   setCommentLikes(commentLikeTogglerButton, comment.has_liked, likesAmount, likesAmountSpan);
   commentLikeTogglerButton.attr("data-comment-id", comment.id);
+  commentClone.attr("data-comment-id", comment.id);
   if (parentComment === null) {
     if (newComment === null) {
       $(".post-comment-list").append(commentClone);
