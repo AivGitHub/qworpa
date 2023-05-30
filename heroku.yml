@@ -2,4 +2,4 @@ build:
   docker:
     web: Dockerfile
 run:
-  web: bash entrypoint.sh
+  web: bash docker-entrypoint.sh
