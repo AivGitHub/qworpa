@@ -24,9 +24,11 @@
         </label>
         {% endif %}
         {{ field }}
+        {% if field.help_text %}
         <span class="text-muted">
           {{ field.help_text }}
         </span>
+        {% endif %}
         {{ field.errors }}
       </div>
       {% endfor %}
