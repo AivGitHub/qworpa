@@ -74,6 +74,7 @@ class SignUpForm(ErrorFormMixin, UserCreationForm):
                 'autofocus': True,
             }
         ),
+        min_length=5,
         max_length=64,
         required=True
     )
