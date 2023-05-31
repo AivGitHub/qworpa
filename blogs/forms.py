@@ -50,6 +50,7 @@ class PostCreateForm(forms.ModelForm):
                 'class': 'form-check-input',
             }
         ),
+        help_text=_('Only you can see your draft posts.'),
         required=False,
         initial=False
     )
