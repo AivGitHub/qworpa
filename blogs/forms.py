@@ -28,6 +28,7 @@ class PostCreateForm(forms.ModelForm):
                 'resize': 'none',
             }
         ),
+        help_text=_('Text supports default markdown.'),
         required=True
     )
     category = forms.ModelChoiceField(
