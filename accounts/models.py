@@ -135,6 +135,15 @@ class User(AbstractBaseUser, PermissionsMixin):
 
         return self.username
 
+    def get_safe_full_name(self) -> str:
+        full_name = self.get_full_name()
+        full_name_split = full_name.split()
+        if len(full_name_split) == 1:
+            return full_name
+        # We need it in case user has a second name
+        first_name = full_name_split.pop(0)
+        return '%s %s' % (first_name, ' '.join(['%s.' % a[0] for a in full_name_split]))
+
     def email_user(self, subject, message, from_email=None, **kwargs) -> None:
         send_mail(subject, message, from_email, [self.email], **kwargs)
 

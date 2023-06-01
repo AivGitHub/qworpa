@@ -134,7 +134,7 @@ class PostCommentResponseSerializer(serializers.ModelSerializer):
 
     def get_author(self, post):
         return {
-            'full_name': post.author.get_full_name(),
+            'full_name': post.author.get_safe_full_name(),
         }
 
     def get_likes_amount(self, post_comment):

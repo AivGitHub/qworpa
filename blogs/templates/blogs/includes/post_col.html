@@ -1,4 +1,4 @@
-{% load blogs_helpers i18n markdown_extras %}
+{% load blogs_helpers helpers i18n markdown_extras %}
 
 <div class="card mb-4">
   <div class="card-body">
@@ -31,7 +31,7 @@
     </p>
     {% endif %}
     <p class="text-muted">
-      {{ post.author.get_full_name }} | {{ post.created_at }}{% if post.is_draft %} | {% trans "(Draft)" %}{% endif %}
+      {{ post.author.get_safe_full_name }} | {{ post.created_at }}{% if post.is_draft %} | {% trans "(Draft)" %}{% endif %}
     </p>
     {% if is_detailed %}
     <p class="card-text">{{ post.content | markdown | safe }}</p>
