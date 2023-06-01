@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block title %}
-{% if post.title %}{{ post.title|truncatewords:1 }}{% else %}{% trans "No content found" %}{% endif %} |
+{% if post.title %}{{ post.title | truncatechars:15 }}{% else %}{% trans "No content found" %}{% endif %} |
 {% endblock %}
 
 {% block content %}
