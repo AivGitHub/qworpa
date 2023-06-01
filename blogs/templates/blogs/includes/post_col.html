@@ -5,13 +5,13 @@
     {% if post %}
     <div class="d-flex justify-content-between">
       <div>
-      {% if is_detailed %}
-      <h1 class="card-title m-0">{{ post.title }}</h1>
-      {% else %}
+      {% if not is_detailed %}
       <a
         href="{% url 'post-details' post.url_hex  %}"
       >
+      {% endif %}
         <h1 class="card-title">{{ post.title }}</h1>
+      {% if not is_detailed %}
       </a>
       {% endif %}
       </div>
