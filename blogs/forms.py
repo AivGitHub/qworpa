@@ -11,10 +11,12 @@ from blogs.models import Post
 class PostCreateForm(forms.ModelForm):
     title = forms.CharField(
         label=_('Title'),
-        widget=forms.TextInput(
+        widget=forms.Textarea(
             attrs={
                 'class': 'form-control',
                 'autofocus': True,
+                'rows': '2',
+                'resize': 'none',
             }
         ),
         max_length=70,
@@ -76,9 +78,10 @@ class PostCreateForm(forms.ModelForm):
 class PostEditForm(PostCreateForm):
     title = forms.CharField(
         label=_('Title'),
-        widget=forms.TextInput(
+        widget=forms.Textarea(
             attrs={
                 'class': 'form-control',
+                'rows': '2',
             }
         ),
         disabled=True
