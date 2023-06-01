@@ -17,6 +17,7 @@ class PostCreateForm(forms.ModelForm):
                 'autofocus': True,
             }
         ),
+        max_length=70,
         help_text=_("You can't change the title after you create a post.")
     )
     content = forms.CharField(
