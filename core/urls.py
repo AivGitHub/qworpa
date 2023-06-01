@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.views.generic import TemplateView
 
 from accounts.views import AboutView, ContactView, FeedView
 
@@ -28,6 +29,14 @@ urlpatterns = [
     path('contact/', ContactView.as_view(), name='contact'),
     path('authentications/', include('authentications.urls')),
     path('api/', include('api.urls')),
+    path(
+        'robots.txt',
+        TemplateView.as_view(
+            template_name='accounts/robots.txt',
+            content_type='text/plain'
+        ),
+        name='robots'
+    ),
 ]
 
 
