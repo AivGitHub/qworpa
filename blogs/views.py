@@ -78,3 +78,13 @@ class PostEditView(LoginRequiredMixin, UserPermissionsMixin, UpdateView):
 
     def get_success_url(self):
         return reverse_lazy('post-details', kwargs={'url_hex': self.object.url_hex})
+
+
+class FavoritesListView(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('sign-in')
+    template_name = 'blogs/post_list.html'
+    paginate_by = 10
+
+    def get_queryset(self, *args, **kwargs):
+        # TODO: Sure can be optimized.
+        return Post.objects.filter(id__in=self.request.user.post_likes.values_list('post_id'), is_draft=False)
