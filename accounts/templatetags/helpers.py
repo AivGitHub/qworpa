@@ -5,6 +5,7 @@ from core import settings
 
 AVAILABLE_SETTINGS = [
     'PROJECT_NAME',
+    'TINYMCE_API_KEY',
 ]
 
 

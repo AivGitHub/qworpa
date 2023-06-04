@@ -196,3 +196,5 @@ EMAIL_USE_TLS = True
 LANGUAGES = (
     ('en', 'English'),
 )
+
+TINYMCE_API_KEY = ENV.get_value('TINYMCE_API_KEY')
