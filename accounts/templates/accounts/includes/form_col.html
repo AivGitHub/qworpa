@@ -32,6 +32,16 @@
         {{ field.errors }}
       </div>
       {% endfor %}
+      <div class="mb-2 d-grid d-none progress">
+        <div
+          class="progress-bar progress-bar-striped progress-bar-animated"
+          role="progressbar"
+          aria-valuenow="50"
+          aria-valuemin="0"
+          aria-valuemax="100"
+          style="width: 50%"
+        ></div>
+      </div>
       <div class="d-grid">
         <button class="btn btn-primary btn-lg" id="submit-button" type="submit">
           {% if submit_button_text %}{{ submit_button_text }}{% else %}{% trans "Submit!" %}{% endif %}
