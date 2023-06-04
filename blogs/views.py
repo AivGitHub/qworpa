@@ -84,6 +84,12 @@ class FavoritesListView(LoginRequiredMixin, ListView):
     login_url = reverse_lazy('sign-in')
     template_name = 'blogs/post_list.html'
     paginate_by = 10
+    extra_context = {
+        'no_posts_message': _(
+            '<p>Add interesting content to your favorites.</p>'
+            '<p>Press like button on posts you like.</p>'
+        ),
+    }
 
     def get_queryset(self, *args, **kwargs):
         # TODO: Sure can be optimized.

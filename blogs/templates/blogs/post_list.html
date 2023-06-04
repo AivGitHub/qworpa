@@ -10,7 +10,13 @@
     <div class="card mb-4">
       <div class="card-body">
         <h1 class="card-title">{% trans "No posts found!" %}</h1>
-        <p class="card-text">{% trans "No worries, soon here will be a lot of interesting stuff." %}</p>
+        <p class="card-text">
+          {% if no_posts_message %}
+            {{ no_posts_message | safe }}
+          {% else %}
+            <p>{% trans "No worries, soon here will be a lot of interesting stuff." %}</p>
+          {% endif %}
+        </p>
       </div>
     </div>
     {% endif %}
