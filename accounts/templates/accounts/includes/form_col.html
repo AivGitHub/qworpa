@@ -16,7 +16,7 @@
       {% csrf_token %}
       {% for field in form %}
       <div class="mb-2{% if field.field.widget.input_type == 'checkbox' %} form-check form-switch{% endif %}">
-        {% if field.label %}
+        {% if field.label and not field.is_hidden %}
         <label
           class="form-label"
           for="{{ field.id_for_label }}"
@@ -24,7 +24,7 @@
         </label>
         {% endif %}
         {{ field }}
-        {% if field.help_text %}
+        {% if field.help_text and not field.is_hidden %}
         <span class="text-muted">
           {{ field.help_text }}
         </span>
