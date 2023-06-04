@@ -24,7 +24,7 @@ class PostCreateForm(forms.ModelForm):
     )
     content = forms.CharField(
         label=_('Content'),
-        widget=forms.Textarea(
+        widget=forms.HiddenInput(
             attrs={
                 'class': 'form-control',
                 'rows': '16',

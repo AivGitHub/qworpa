@@ -1,6 +1,6 @@
 {% extends 'accounts/base.html' %}
 
-{% load helpers i18n %}
+{% load helpers i18n static %}
 
 {% block title %}{% if page_title %}{{ page_title }}{% else %}{% trans "Create post" %}{% endif %} | {% endblock %}
 
@@ -10,3 +10,11 @@
   {% block sidebar %}{% include 'accounts/includes/sidebar.html' %}{% endblock sidebar %}
 </div>
 {% endblock content %}
+
+{% block extrascripts %}
+<script
+  src="https://cdn.tiny.cloud/1/{% get_setting 'TINYMCE_API_KEY' %}/tinymce/6/tinymce.min.js"
+  referrerpolicy="origin"
+></script>
+<script src="{% static 'blogs/editors.js' %}"></script>
+{% endblock %}
