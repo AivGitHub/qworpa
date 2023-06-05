@@ -176,7 +176,7 @@ class ConfirmEmailView(AuthViewMixin, TemplateView):
         return self.render_to_response(context)
 
 
-class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
+class ResetPasswordView(AuthViewMixin, SuccessMessageMixin, PasswordResetView):
     form_class = AuthPasswordResetForm
     template_name = 'authentications/reset_password.html'
     email_template_name = 'authentications/emails/reset_password.html'
@@ -194,11 +194,11 @@ class ResetPasswordView(SuccessMessageMixin, PasswordResetView):
     }
 
 
-class ResetPasswordConfirmView(PasswordResetConfirmView):
+class ResetPasswordConfirmView(AuthViewMixin, PasswordResetConfirmView):
     template_name = 'authentications/reset_password_confirm.html'
     form_class = PasswordSetForm
     success_url = reverse_lazy('reset-password-complete')
 
 
-class ResetPasswordCompleteView(PasswordResetCompleteView):
+class ResetPasswordCompleteView(AuthViewMixin, PasswordResetCompleteView):
     template_name = 'authentications/reset_password_complete.html'
