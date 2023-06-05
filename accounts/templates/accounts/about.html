@@ -4,18 +4,13 @@
 
 {% block title %}{% trans "About" %} | {% endblock %}
 
-{% block content %}
-<div class="row">
-  <div class="col-md-8 mb-4 mt-3 left top">
-    <div class="card mb-4">
-      <div class="card-body">
-        <h1 class="card-title">{% trans "About project" %}</h1>
-        <p class="card-text">
-          {% trans "Blog site, read, become a famous writer." %}
-        </p>
-      </div>
-    </div>
+{% block content_row_col %}
+<div class="card mb-4">
+  <div class="card-body">
+    <h1 class="card-title">{% trans "About project" %}</h1>
+    <p class="card-text">
+      {% trans "Blog site, read, become a famous writer." %}
+    </p>
   </div>
-  {% block sidebar %}{% include 'accounts/includes/sidebar.html' %}{% endblock sidebar %}
 </div>
-{% endblock content %}
+{% endblock %}

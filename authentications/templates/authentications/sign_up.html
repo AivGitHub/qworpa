@@ -4,17 +4,4 @@
 
 {% block title %}{% trans "Sign Up" %} | {% endblock %}
 
-{% block content %}
-<div class="container">
-  <div class="row">
-    {% include "accounts/includes/form_col.html" with form=form %}
-  </div>
-  <div class="row">
-    <div class="col-md-8 card mb-4 mt-3 left top">
-      <div class="card-body">
-        <p>{% trans "Already have an account?" %} <a href="{% url 'sign-in' %}">{% trans "Sign In!" %}</a></p>
-      </div>
-    </div>
-  </div>
-</div>
-{% endblock content %}
+{% block content_row_col %}{% include "accounts/includes/form_col.html" with form=form %}{% endblock %}

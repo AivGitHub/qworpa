@@ -42,7 +42,14 @@
         </div>
       </header>
       {% endif %}
-      {% block content %}{% endblock content %}
+      {% block content %}
+      <div class="row">
+        <div class="col-md-8 mb-4 mt-3 left top">
+          {% block content_row_col %}{% endblock %}
+        </div>
+        {% block sidebar %}{% include 'accounts/includes/sidebar.html' %}{% endblock sidebar %}
+      </div>
+      {% endblock content %}
       {% if not hide_back_button %}
       <div class="row">
         <div class="col-6 offset-6 mb-4 mt-3">

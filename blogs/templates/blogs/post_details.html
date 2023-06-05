@@ -6,13 +6,10 @@
 {% if post.title %}{{ post.title | truncatechars:15 }}{% else %}{% trans "No content found" %}{% endif %} |
 {% endblock %}
 
+{% block content_row_col %}{% include "blogs/includes/post_col.html" with post=post is_detailed=True %}{% endblock %}
+
 {% block content %}
-<div class="row">
-  <div class="col-md-8 mb-4 mt-3 left top">
-    {% include "blogs/includes/post_col.html" with post=post is_detailed=True %}
-  </div>
-  {% block sidebar %}{% include 'accounts/includes/sidebar.html' %}{% endblock sidebar %}
-</div>
+{{ block.super }}
 <div class="row">
   <div class="col-md-10 mb-4 mt-3 left top">
     {% include "blogs/includes/post_comments.html" with post=post %}

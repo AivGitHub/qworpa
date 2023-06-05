@@ -3,43 +3,42 @@
 
 {% block title %}{% translate "Posts" %} | {% endblock %}
 
-{% block content %}
-<div class="row">
-  <div class="col-md-8 mb-4 mt-3 left top">
-    {% if not post_list %}
-    <div class="card mb-4">
-      <div class="card-body">
-        <h1 class="card-title">{% trans "No posts found!" %}</h1>
-        <p class="card-text">
-          {% if no_posts_message %}
-            {{ no_posts_message | safe }}
-          {% else %}
-            <p>{% trans "No worries, soon here will be a lot of interesting stuff." %}</p>
-          {% endif %}
-        </p>
-      </div>
+{% block content_row_col %}
+{% if not post_list %}
+<div class="card mb-4">
+  <div class="card-body">
+    <h1 class="card-title">{% trans "No posts found!" %}</h1>
+    <p class="card-text">
+      {% if no_posts_message %}
+        {{ no_posts_message | safe }}
+      {% else %}
+        <p>{% trans "No worries, soon here will be a lot of interesting stuff." %}</p>
+      {% endif %}
+    </p>
+  </div>
+</div>
+{% endif %}
+{% if messages %}
+<div class="card mb-4">
+  <div class="card-body">
+    {% for message in messages %}
+    <div
+      class="alert alert-{{ message.tags }}"
+      role="alert"
+    >
+      {{ message | markdown | safe }}
     </div>
-    {% endif %}
-    {% if messages %}
-    <div class="card mb-4">
-      <div class="card-body">
-        {% for message in messages %}
-        <div
-          class="alert alert-{{ message.tags }}"
-          role="alert"
-        >
-          {{ message | markdown | safe }}
-        </div>
-        {% endfor %}
-      </div>
-    </div>
-    {% endif %}
-    {% for post in post_list %}
-      {% include "blogs/includes/post_col.html" with post=post %}
     {% endfor %}
   </div>
-  {% block sidebar %}{% include 'accounts/includes/sidebar.html' %}{% endblock sidebar %}
 </div>
+{% endif %}
+{% for post in post_list %}
+  {% include "blogs/includes/post_col.html" with post=post %}
+{% endfor %}
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
 {% if page_obj.has_other_pages %}
 <div class="row">
   <div class="col-md-8 mb-4 mt-1 left top">
@@ -47,4 +46,4 @@
   </div>
 </div>
 {% endif %}
-{%endblock%}
+{% endblock content %}

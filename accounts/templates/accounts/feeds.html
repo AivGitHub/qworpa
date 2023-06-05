@@ -4,23 +4,22 @@
 
 {% block title %}{% translate "Feed" %} | {% endblock %}
 
-{% block content %}
-<div class="row">
-  <div class="col-md-8 mb-4 mt-3 left top">
-  {% if not post_list %}
-  <div class="card mb-4">
-    <div class="card-body">
-      <h1 class="card-title">{% trans "No new posts!" %}</h1>
-      <p class="card-text">{% trans "No worries, soon we will find interesting posts for you!" %}</p>
-    </div>
+{% block content_row_col %}
+{% if not post_list %}
+<div class="card mb-4">
+  <div class="card-body">
+    <h1 class="card-title">{% trans "No new posts!" %}</h1>
+    <p class="card-text">{% trans "No worries, soon we will find interesting posts for you!" %}</p>
   </div>
-  {% endif %}
-  {% for post in post_list %}
-    {% include "blogs/includes/post_col.html" with post=post %}
-  {% endfor %}
-  </div>
-  {% block sidebar %}{% include 'accounts/includes/sidebar.html' %}{% endblock sidebar %}
 </div>
+{% endif %}
+{% for post in post_list %}
+  {% include "blogs/includes/post_col.html" with post=post %}
+{% endfor %}
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
 {% if post_list %}
 <div class="row">
   <div class="col-6 offset-6 mb-4 mt-3">
@@ -33,4 +32,4 @@
   </div>
 </div>
 {% endif %}
-{%endblock%}
+{% endblock content %}
