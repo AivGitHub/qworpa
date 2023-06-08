@@ -198,3 +198,26 @@ LANGUAGES = (
 )
 
 TINYMCE_API_KEY = ENV.get_value('TINYMCE_API_KEY')
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(asctime)s | %(name)s | %(levelname)s | %(funcName)s:%(lineno)s | %(message)s',
+        },
+    },
+    'handlers': {
+        'console': {
+            'level': 'INFO',
+            'class': 'logging.StreamHandler',
+            'formatter': 'verbose',
+        },
+    },
+    'loggers': {
+        'ui': {
+            'handlers': ['console'],
+            'level': 'INFO',
+        },
+    },
+}
