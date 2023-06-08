@@ -1,3 +1,9 @@
+function confirmExit() {
+    return "Are you sure you want to close this page?";
+}
+
+window.onbeforeunload = confirmExit;
+
 document.addEventListener("DOMContentLoaded", (event) => {
   let idContent = $("#id_content");
   let progressTag = $(".progress");
@@ -15,6 +21,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     }
   });
   $("#submit-button").click(function() {
+    window.onbeforeunload = null;
     // Dirty hack
     idContent.text(tinyMCE.activeEditor.getContent());
   });
