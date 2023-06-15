@@ -116,18 +116,18 @@
       </ul>
       <div>
         <a
-          class="nav-link{% if url_name == 'about' %} active disabled{% endif %}"
-          href="{% url 'about' %}"
+          class="nav-link{% if url_name == 'sign-in' %} active disabled{% endif %}"
+          href="{% url 'sign-in' %}"
         >
-          {% trans "About" %}
+          {% trans "Sign in" %}
         </a>
       </div>
       <div>
         <a
-          class="nav-link{% if url_name == 'contact' %} active disabled{% endif %}"
-          href="{% url 'contact' %}"
+          class="nav-link{% if url_name == 'about' %} active disabled{% endif %}"
+          href="{% url 'about' %}"
         >
-          {% trans "Contact" %}
+          {% trans "About" %}
         </a>
       </div>
       {% endwith %}
