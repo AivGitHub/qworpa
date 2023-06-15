@@ -33,22 +33,3 @@ textarea {
 .card {
   box-shadow: 0 16px 48px #E3E7EB;
 }
-
-#logout-form button {
-    background: none;
-    border: 0;
-    cursor: pointer;
-}
-
-#user-tools, #logout-form button {
-    text-transform: uppercase;
-}
-
-#user-tools a, #logout-form button {
-    border-bottom: 1px solid rgba(255, 255, 255, 0.25);
-}
-
-#logout-form button:active, #logout-form button:hover {
-    text-decoration: none;
-    border-bottom: 0;
-}

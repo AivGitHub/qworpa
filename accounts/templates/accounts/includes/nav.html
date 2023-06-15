@@ -1,10 +1,20 @@
 {% load helpers i18n static %}
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light shadow" id="main-nav">
-  <div class="container-fluid">
+{% block extrastyle %}
+<link
+  href="{% static 'accounts/nav.css' %}"
+  rel="stylesheet"
+/>
+{% endblock %}
+
+<nav
+  class="navbar nav-header navbar-expand{% if request.user.is_authenticated %}-lg{% endif %} static-top container-md navbar-light"
+>
+  <div class="container">
     <a class="navbar-brand" href="{% url 'feed' %}">
-      {% get_setting 'PROJECT_NAME' %}
+      <span>{% get_setting 'PROJECT_NAME' %}</span>
     </a>
+    {% if request.user.is_authenticated %}
     <button
       class="navbar-toggler"
       type="button"
@@ -12,37 +22,30 @@
       data-bs-target="#main-navbar"
       aria-controls="main-navbar"
       aria-expanded="false"
-      aria-label="Toggle navigation"
+      aria-label="{% trans 'Toggle navigation' %}"
     >
-      <span class="navbar-toggler-icon"></span>
+      <i class="bi bi-list-nested"></i>
     </button>
     <div class="collapse navbar-collapse" id="main-navbar">
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      {% with request.resolver_match.url_name as url_name %}
+      <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link text-black font-weight-bold" href="{% url 'about' %}">{% trans "About" %}</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-black font-weight-bold" href="{% url 'contact' %}">{% trans "Contact" %}</a>
-        </li>
-      </ul>
-      {% if user.is_authenticated %}
-      <ul class="navbar-nav d-flex flex-row ms-auto me-3">
-        <li class="nav-item me-3 me-lg-0 dropdown">
           <a
-            class="nav-link dropdown-toggle"
-            href="#"
-            id="navbar-dropdown-actions"
-            role="button"
-            data-bs-toggle="dropdown"
-            aria-expanded="false"
+            class="nav-link{% if url_name == 'add-post' %} active disabled{% endif %}"
+            href="{% url 'add-post' %}"
           >
-            <i class="bi bi-plus-lg"></i>
+            {% trans "Add post" %}
           </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-actions">
-            <li><a class="dropdown-item" href="{% url 'add-post' %}">{% trans "Add post" %}</a></li>
-          </ul>
         </li>
-        <li class="nav-item me-3 me-lg-0 dropdown">
+        <li class="nav-item">
+          <a
+            class="nav-link{% if url_name == 'contact' %} active disabled{% endif %}"
+            href="{% url 'contact' %}"
+          >
+            {% trans "Contact" %}
+          </a>
+        </li>
+        <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
             href="#"
@@ -51,30 +54,84 @@
             data-bs-toggle="dropdown"
             aria-expanded="false"
           >
-            <img
-              src="{% static 'accounts/img/avatar.png' %}"
-              class="rounded-circle"
-              height="22"
-              alt=""
-              loading="lazy"
-            />
+            {{ request.user.get_safe_full_name }}
           </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbar-dropdown-settings">
-            <li><a class="dropdown-item" href="{% url 'my-post-list' %}">{% trans "My posts" %}</a></li>
-            <li><a class="dropdown-item" href="{% url 'favorites' %}">{% trans "Favorites" %}</a></li>
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="navbar-dropdown-settings"
+          >
             <li>
-              <hr class="dropdown-divider" />
+              <div class="container">
+                <section class="mx-auto my-1" style="min-width: 20rem;">
+                  <div class="card">
+                    <div class="card-body pb-0">
+                      <a href="{% url 'my-post-list' %}" class="text-decoration-none">
+                        <div class="card-settings">
+                          <h5 class="card-title font-weight-bold">{{ request.user.get_full_name }}</h5>
+                          <p class="card-text">{{ request.user.email }}</p>
+                        </div>
+                      </a>
+                      <div class="d-flex justify-content-between">
+                        <p class="">{% trans "Birth date:" %} {{ request.user.birth_date }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+              </div>
+            </li>
+            <li>
+              <a
+                class="dropdown-item{% if url_name == 'my-post-list' %} active disabled{% endif %}"
+                href="{% url 'my-post-list' %}"
+              >
+                {% trans "My posts" %}
+              </a>
+            </li>
+            <li>
+              <a
+                class="dropdown-item{% if url_name == 'favorites' %} active disabled{% endif %}"
+                href="{% url 'favorites' %}"
+              >
+                {% trans "Favorites" %}
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
             </li>
             <li>
               <form id="logout-form" method="post" action="{% url 'logout' %}">
                 {% csrf_token %}
-                <button type="submit">{% trans "Log out" %}</button>
+                <button class="btn" type="submit">{% trans "Log out" %}</button>
               </form>
             </li>
           </ul>
         </li>
       </ul>
-      {% endif %}
+      {% endwith %}
     </div>
+  {% else %}
+    <div class="navbar-nav collapse navbar-collapse">
+      {% with request.resolver_match.url_name as url_name %}
+      <ul class="me-auto">
+      </ul>
+      <div>
+        <a
+          class="nav-link{% if url_name == 'about' %} active disabled{% endif %}"
+          href="{% url 'about' %}"
+        >
+          {% trans "About" %}
+        </a>
+      </div>
+      <div>
+        <a
+          class="nav-link{% if url_name == 'contact' %} active disabled{% endif %}"
+          href="{% url 'contact' %}"
+        >
+          {% trans "Contact" %}
+        </a>
+      </div>
+      {% endwith %}
+    </div>
+  {% endif %}
   </div>
 </nav>
