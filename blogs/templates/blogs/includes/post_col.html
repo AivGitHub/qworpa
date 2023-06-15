@@ -4,10 +4,11 @@
   <div class="card-body">
     {% if post %}
     <div class="d-flex justify-content-between">
-      <div>
+      <div class="post-card-header">
       {% if not is_detailed %}
       <a
         href="{% url 'post-details' post.url_hex  %}"
+        class="text-decoration-none"
       >
       {% endif %}
         <h3 class="card-title text-break">{{ post.title }}</h3>
@@ -16,7 +17,7 @@
       {% endif %}
       </div>
       {% if user.is_authenticated and user == post.author %}
-      <div>
+      <div class="no-wrap">
         <a href="{% url 'edit-post' post.url_hex %}" class="h4"><i class="bi bi-pencil-square"></i></a>
         <a href="#" class="delete-post h4 text-danger" data-url-hex="{{ post.url_hex }}">
           {% csrf_token %}
@@ -42,7 +43,7 @@
     <p>
       <a
         href="{% url 'post-details' post.url_hex  %}"
-        class="btn btn-primary"
+        class="btn btn-primary read-more-button"
       >
         {% trans "Read More" %} &rarr;
       </a>

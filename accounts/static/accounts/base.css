@@ -33,3 +33,35 @@ textarea {
 .card {
   box-shadow: 0 16px 48px #E3E7EB;
 }
+
+.container .row .card {
+  background-color: rgba(240, 239, 237, 1);
+  border-radius: 10px;
+  box-shadow: 0 16px 48px rgba(166, 165, 163, 1);
+}
+
+.container .row .card .post-card-header a {
+  color: rgba(232, 90, 79, 1);
+}
+
+.container .row .card .post-card-header a:hover {
+  color: rgba(255, 0, 0, 1);
+}
+
+.container .row .card .btn {
+  background-color: inherit;
+  border-color: rgba(232, 90, 79, .1);
+  color: rgba(232, 90, 79, 1);
+}
+
+.container .row .card .btn.btn-dark {
+  background-color: rgba(230, 209, 209, 1);
+}
+
+.container .row .card .btn:hover {
+  background-color: rgba(232, 90, 79, .1);
+}
+
+.no-wrap {
+  white-space: nowrap;
+}
