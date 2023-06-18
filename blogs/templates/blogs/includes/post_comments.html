@@ -46,7 +46,14 @@
 <aside class="d-flex justify-content-between align-items-center my-4">
   {% with comment_amount=post.comments.count %}
   <h4 class="h6">
-    {% if comment_amount %}<span id="total-comments-amount">{{ post.comments.count }}</span> {% trans "Comments" %}{% else %}{% trans "No comments yet" %}{% endif %}
+    <span>
+      <span id="post-comments-found" class="{% if not comment_amount %}d-none{% endif %}">
+        <span id="total-comments-amount">{{ comment_amount }}</span> {% trans "Comments" %}
+      </span>
+      <span id="no-post-comments-found" class="{% if comment_amount %}d-none{% endif %}">
+        {% trans "No comments yet" %}
+      </span>
+    </span>
   </h4>
   {% endwith %}
 </aside>

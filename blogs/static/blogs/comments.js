@@ -102,6 +102,15 @@ function deleteCommentLike(e) {
     },
   }).done(function(comments) {
     commentDiv.remove();
+    let totalCommentsAmountSpan = $("#total-comments-amount");
+    let currentTotalCommentsAmountSpan = parseInt(totalCommentsAmountSpan.text() | 0);
+    console.log(currentTotalCommentsAmountSpan);
+    if (currentTotalCommentsAmountSpan === 1) {
+      $("#no-post-comments-found").removeClass("d-none");
+      $("#post-comments-found").addClass("d-none");
+    }
+    let totalCommentsAmount = currentTotalCommentsAmountSpan - 1;
+    totalCommentsAmountSpan.text(totalCommentsAmount);
   }).fail(function() {
     alert("Something went wrong! Try again later.");
   });
@@ -152,8 +161,10 @@ function populateComment(comment, parentComment, newComment) {
 function setComment(textArea, comment) {
   textArea.val("");
   let totalCommentsAmountSpan = $("#total-comments-amount");
-  let totalCommentsAmount = parseInt(totalCommentsAmountSpan.text()) + 1;
+  let totalCommentsAmount = parseInt(totalCommentsAmountSpan.text() | 0) + 1;
   totalCommentsAmountSpan.text(totalCommentsAmount);
+  $("#no-post-comments-found").addClass("d-none");
+  $("#post-comments-found").removeClass("d-none");
   populateComment(comment, null, true);
 }
 
