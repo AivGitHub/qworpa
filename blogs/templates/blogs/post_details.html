@@ -3,7 +3,7 @@
 {% load i18n %}
 
 {% block title %}
-{% if post.title %}{{ post.title | truncatechars:15 }}{% else %}{% trans "No content found" %}{% endif %} |
+{% if post.title %}{{ post.title | truncatechars:60 }}{% else %}{% trans "No content found" %}{% endif %} |
 {% endblock %}
 
 {% block content_row_col %}{% include "blogs/includes/post_col.html" with post=post is_detailed=True %}{% endblock %}
