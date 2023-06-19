@@ -32,3 +32,9 @@ def markdown(value):
         markdown_tags,
         markdown_attrs
     )
+
+
+@register.filter(name='nbsp2space', is_safe=True)
+@stringfilter
+def nbsp2space(value):
+    return ' '.join(value.replace('&nbsp;', '').split())

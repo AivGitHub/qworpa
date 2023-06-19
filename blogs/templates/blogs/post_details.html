@@ -1,6 +1,28 @@
 {% extends 'accounts/base.html' %}
 
-{% load i18n %}
+{% load i18n markdown_extras %}
+
+{% block metadescription %}
+<meta
+  property="description"
+  content="{% if post.content %}{{ post.content | striptags | truncatewords:60 | safe | nbsp2space  }}{% else %}{% trans 'No content found' %}{% endif %}"
+/>
+<meta
+  property="og:description"
+  content="{% if post.content %}{{ post.content | striptags | truncatewords:60 | safe | nbsp2space }}{% else %}{% trans 'No content found' %}{% endif %}"
+/>
+{% endblock %}
+
+{% block metakeywords %}
+<meta name="keywords" content="{% if post.tags %}{{ post.tags }}{% else %}{% trans 'start best free personal blog content writer creator' %}{% endif %}" />
+{% endblock %}
+
+{% block extrameta %}
+<meta
+  property="og:title"
+  content="{% if post.title %}{{ post.title | truncatechars:60 }}{% else %}{% trans 'No content found' %}{% endif %}"
+/>
+{% endblock %}
 
 {% block title %}
 {% if post.title %}{{ post.title | truncatechars:60 }}{% else %}{% trans "No content found" %}{% endif %} |
