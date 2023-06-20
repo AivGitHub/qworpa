@@ -1,0 +1,262 @@
+[
+{
+    "model": "accounts.category",
+    "pk": 1,
+    "fields": {
+        "title": "Arts & Entertainment",
+        "description": "",
+        "slug": "arts_entertainment",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 2,
+    "fields": {
+        "title": "Autos & Vehicles",
+        "description": "",
+        "slug": "autos_vehicles",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 3,
+    "fields": {
+        "title": "Beauty & Fitness",
+        "description": "",
+        "slug": "beauty_fitness",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 4,
+    "fields": {
+        "title": "Books & Literature",
+        "description": "",
+        "slug": "books_literature",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 5,
+    "fields": {
+        "title": "Business & Industrial",
+        "description": "",
+        "slug": "business_industrial",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 6,
+    "fields": {
+        "title": "Computers & Electronics",
+        "description": "",
+        "slug": "computers_electronics",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 7,
+    "fields": {
+        "title": "Finance",
+        "description": "",
+        "slug": "finance",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 8,
+    "fields": {
+        "title": "Food & Drink",
+        "description": "",
+        "slug": "food_drink",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 9,
+    "fields": {
+        "title": "Games",
+        "description": "",
+        "slug": "games",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 10,
+    "fields": {
+        "title": "Health",
+        "description": "",
+        "slug": "health",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 11,
+    "fields": {
+        "title": "Hobbies & Leisure",
+        "description": "",
+        "slug": "hobbies_leisure",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 12,
+    "fields": {
+        "title": "Home & Garden",
+        "description": "",
+        "slug": "home_garden",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 13,
+    "fields": {
+        "title": "Internet & Telecom",
+        "description": "",
+        "slug": "internet_telecom",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 14,
+    "fields": {
+        "title": "Jobs & Education",
+        "description": "",
+        "slug": "jobs_education",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 15,
+    "fields": {
+        "title": "Law & Government",
+        "description": "",
+        "slug": "law_government",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 16,
+    "fields": {
+        "title": "News",
+        "description": "",
+        "slug": "news",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 17,
+    "fields": {
+        "title": "Online Communities",
+        "description": "",
+        "slug": "online_communities",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 18,
+    "fields": {
+        "title": "People & Society",
+        "description": "",
+        "slug": "people_society",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 19,
+    "fields": {
+        "title": "Pets & Animals",
+        "description": "",
+        "slug": "pets_animals",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 20,
+    "fields": {
+        "title": "Real Estate",
+        "description": "",
+        "slug": "real_estate",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 21,
+    "fields": {
+        "title": "Reference",
+        "description": "",
+        "slug": "reference",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 22,
+    "fields": {
+        "title": "Science",
+        "description": "",
+        "slug": "science",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 23,
+    "fields": {
+        "title": "Shopping",
+        "description": "",
+        "slug": "shopping",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 24,
+    "fields": {
+        "title": "Sports",
+        "description": "",
+        "slug": "sports",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 25,
+    "fields": {
+        "title": "Travel & Transportation",
+        "description": "",
+        "slug": "travel_transportation",
+        "weight": 0
+    }
+},
+{
+    "model": "accounts.category",
+    "pk": 26,
+    "fields": {
+        "title": "World Localities",
+        "description": "",
+        "slug": "world_localities",
+        "weight": 0
+    }
+}
+]
