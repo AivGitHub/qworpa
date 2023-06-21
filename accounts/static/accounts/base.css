@@ -65,3 +65,8 @@ textarea {
 .no-wrap {
   white-space: nowrap;
 }
+
+.card-body img {
+  max-width: 100%;
+  height: auto;
+}
