@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   progressTag.removeClass("d-none");
   tinymce.init({
     selector: "#id_content",
-    plugins: "preview",
+    plugins: "preview image",
     toolbar: "undo redo | blocks fontfamily fontsize | bold italic underline strikethrough | link image media table mergetags | addcomment showcomments | spellcheckdialog a11ycheck typography | align lineheight | checklist numlist bullist indent outdent | emoticons charmap | removeformat",
     tinycomments_mode: "embedded",
     min_height: 400,
