@@ -18,7 +18,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
       editor.on('init', function(e) {
         progressTag.addClass("d-none");
       });
-    }
+    },
+    paste_data_images: false
   });
   $("#submit-button").click(function() {
     window.onbeforeunload = null;

@@ -24,14 +24,14 @@ class PostCreateForm(forms.ModelForm):
     )
     content = forms.CharField(
         label=_('Content'),
-        widget=forms.HiddenInput(
+        widget=forms.Textarea(
             attrs={
-                'class': 'form-control',
+                'class': 'form-control d-none',
                 'rows': '16',
                 'resize': 'none',
             }
         ),
-        help_text=_('Text supports default markdown.'),
+        help_text=_('Uploading images disabled for now, but you can use external images. Insert -> Image...'),
         required=True
     )
     category = forms.ModelChoiceField(
