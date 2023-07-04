@@ -70,3 +70,15 @@ textarea {
   max-width: 100%;
   height: auto;
 }
+
+.cookie-popup {
+  position: fixed;
+  bottom: 1rem;
+  right: 1rem;
+  background: #fff;
+  z-index: 2051;
+  line-height: 20px;
+  font-size: 14px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+}
