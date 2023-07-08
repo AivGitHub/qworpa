@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+[0.3.1]: https://github.com/AivGitHub/qworpa/releases/tag/v0.3.1
+
+## [0.3.1] - 2023-07-08
+
+### Added
+
+- Improve existing code.
+
 [0.3.0]: https://github.com/AivGitHub/qworpa/releases/tag/v0.3.0
 
 ## [0.3.0] - 2023-07-04
