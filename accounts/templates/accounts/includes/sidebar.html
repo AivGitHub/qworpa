@@ -14,14 +14,14 @@
     <h5 class="card-header">{% trans "Last news" %}</h5>
     <div class="card-body">
       <p class="card-text">
-        {% blocktranslate %}My first file storage project.{% endblocktranslate %}
+        {% blocktranslate %}If you have any suggestions about design/features you are welcome to leave a comment and the team will do the best to fit your expectations.{% endblocktranslate %}
       </p>
       <a
-        href="https://brosfiles.com"
+        href="{% url 'contact' %}"
         class="btn btn-danger"
         target="_blank"
       >
-        {% trans "Check this out!" %}
+        {% trans "Make a suggestion!" %}
       </a>
     </div>
     {% else %}
