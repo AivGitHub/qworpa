@@ -37,7 +37,7 @@
     {% if is_detailed %}
     <p class="card-text">{{ post.content | markdown | safe }}</p>
     {% else %}
-    <p class="card-text">{{ post.content | markdown | safe | truncatechars_html:100 }}</p>
+    <p class="card-text">{{ post.content | markdown | safe | truncatechars_html:500 }}</p>
     {% endif %}
     {% if not is_detailed %}
     <p>
