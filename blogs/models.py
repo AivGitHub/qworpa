@@ -65,7 +65,9 @@ class Post(models.Model):
         blank=False,
         unique=True
     )
-    weight = models.PositiveSmallIntegerField(
+    # I decided to use float instead of decimal.
+    # If you have arguments please let me know.
+    weight = models.FloatField(
         _('Weight'),
         default=0,
         null=False,
