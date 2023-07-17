@@ -5,6 +5,7 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 from accounts.models import Category, User
+from blogs.managers import PostManager
 
 
 class UUID4HEXNotGenerated(Exception):
@@ -92,6 +93,8 @@ class Post(models.Model):
         null=True,
         blank=True
     )
+
+    objects = PostManager()
 
     class Meta:
         ordering = ['-created_at']
