@@ -12,6 +12,7 @@ djangorestframework==3.14.0
 importlib-metadata==6.6.0
 jwcrypto==1.4.2
 Markdown==3.4.3
+numpy==1.24.4
 psycopg2-binary==2.9.6
 pycparser==2.21
 PyJWT==2.7.0

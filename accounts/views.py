@@ -136,9 +136,10 @@ class AboutView(TemplateView):
 
 
 class FeedView(ListView):
-    # TODO: filter posts according to user preferences if user authenticated.
-    queryset = Post.objects.exclude(is_draft=True).order_by('?')[:5]
     template_name = 'accounts/feeds.html'
     extra_context = {
         'hide_back_button': True,
     }
+
+    def get_queryset(self, *args, **kwargs):
+        return Post.objects.smart_select()
