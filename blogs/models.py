@@ -3,6 +3,7 @@ from uuid import uuid4
 from django.core.exceptions import PermissionDenied, ValidationError
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from numpy import random
 
 from accounts.models import Category, User
 from blogs.managers import PostManager
@@ -96,11 +97,26 @@ class Post(models.Model):
 
     objects = PostManager()
 
+    ADDITIONAL_WEIGHT_AFTER = 100
+
     class Meta:
         ordering = ['-created_at']
 
     def __str__(self):
         return self.title
+
+    def save(self, force_insert=False, force_update=False, using=None, update_fields=None):
+        print(self.category)
+        if self._state.adding:  # noqa
+            self.set_initial_weight()
+        super().save(force_insert=force_insert, force_update=force_update, using=using, update_fields=update_fields)
+
+    def set_initial_weight(self):
+        self.weight = self.category.weight + random.uniform(low=0.001, high=0.01)
+        if self.author.posts.count() > self.ADDITIONAL_WEIGHT_AFTER:
+            self.weight += random.uniform(low=0.01, high=0.05)
+        if self.author.is_staff:
+            self.weight += random.uniform(low=0.1, high=0.5)
 
     def check_access(self, user):
         if self.is_draft and user != self.author:
