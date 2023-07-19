@@ -1,4 +1,5 @@
 from django.test import TestCase
+from numpy import float64, isclose
 
 from blogs.managers import PostManager
 
@@ -15,4 +16,4 @@ class PostManagerTestCase(TestCase):
         ]
         self.assertEqual(sum(_i['weight'] for _i in initial_weights), 2, 'Sum of weights must be 2')
         normalized_weights = PostManager.get_normalized_weights(initial_weights)
-        self.assertEqual(normalized_weights.sum(), 1, 'Sum of normalised weights must be 1')
+        self.assertTrue(isclose(normalized_weights.sum(), float64(1.0)), 'Sum of normalised weights must be 1')
