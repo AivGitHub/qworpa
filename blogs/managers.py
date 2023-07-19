@@ -1,5 +1,5 @@
 from django.db.models import Case, Manager, When
-from numpy import array, random
+from numpy import array, float64, random
 
 
 class PostManager(Manager):
@@ -20,7 +20,8 @@ class PostManager(Manager):
         weights = array(
             [post_data['weight'] if post_data['weight'] else random.uniform(low=0.01, high=0.5)
              for post_data
-             in posts_data]
+             in posts_data],
+            dtype=float64
         )
         return weights / weights.sum()
 
