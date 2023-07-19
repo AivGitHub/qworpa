@@ -17,3 +17,8 @@ class PostManagerTestCase(TestCase):
         self.assertEqual(sum(_i['weight'] for _i in initial_weights), 2, 'Sum of weights must be 2')
         normalized_weights = PostManager.get_normalized_weights(initial_weights)
         self.assertTrue(isclose(normalized_weights.sum(), float64(1.0)), 'Sum of normalised weights must be 1')
+
+    def test_get_normalized_weights_returns_weights_with_sum_equals_to_1_when_posts_amount_equal_to_10000(self):
+        initial_weights = [{'weight': 0.1} for _ in range(0, 1000)]
+        normalized_weights = PostManager.get_normalized_weights(initial_weights)
+        self.assertTrue(isclose(normalized_weights.sum(), float64(1.0)), 'Sum of normalised weights must be 1')
