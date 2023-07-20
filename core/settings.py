@@ -221,3 +221,5 @@ LOGGING = {
         },
     },
 }
+
+LOGIN_URL = '/authentications/sign-in/'
