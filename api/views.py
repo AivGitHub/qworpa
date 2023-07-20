@@ -1,6 +1,9 @@
+from django.contrib.auth import update_session_auth_hash
+import django.contrib.auth.password_validation as validators
 from django.contrib.humanize.templatetags.humanize import NaturalTimeFormatter
 from django.core.exceptions import PermissionDenied
 from django.utils.datastructures import MultiValueDictKeyError
+from django.utils.translation import gettext_lazy as _
 from rest_framework import generics, serializers, status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.pagination import PageNumberPagination
@@ -249,3 +252,46 @@ def process_delete_post_comment(user: User, payload):
 def delete_post_comment(request, *args, **kwargs):
     process_delete_post_comment(request.user, kwargs)
     return Response(status=status.HTTP_200_OK)
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    model = User
+
+    old_password = serializers.CharField(required=True)
+    new_password1 = serializers.CharField(required=True)
+    new_password2 = serializers.CharField(required=True)
+
+    def validate_old_password(self, password):
+        try:
+            user = self.context['user']
+        except KeyError:
+            raise PermissionDenied()
+        if not user.check_password(password):
+            raise serializers.ValidationError(_('Wrong password. Check password and try again.'))
+        return password
+
+    def validate(self, attrs):
+        try:
+            user = self.context['user']
+        except KeyError:
+            raise PermissionDenied()
+        password = attrs['new_password1']
+        if password != attrs['new_password2']:
+            raise serializers.ValidationError(_("Passwords don't match"))
+        validators.validate_password(password=password, user=user)
+        return attrs
+
+
+def process_change_password(request):
+    serializer = ChangePasswordSerializer(data=request.data, context={'user': request.user})
+    serializer.is_valid(raise_exception=True)
+    request.user.set_password(serializer.data['new_password1'])
+    request.user.save(update_fields=['password'])
+    update_session_auth_hash(request, request.user)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def change_password(request, *args, **kwargs):
+    process_change_password(request)
+    return Response({}, status=status.HTTP_200_OK)

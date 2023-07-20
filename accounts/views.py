@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from django.conf import settings
 from django.contrib import messages
-from django.contrib.auth.mixins import UserPassesTestMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.mail import BadHeaderError, send_mail
 from django.views.generic import TemplateView
 from django.shortcuts import render
@@ -15,6 +15,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import FormView, ListView
 
 from accounts.forms import FeedbackMessageForm
+from authentications.forms import ChangePasswordForm
 from blogs.models import Post
 
 
@@ -143,3 +144,14 @@ class FeedView(ListView):
 
     def get_queryset(self, *args, **kwargs):
         return Post.objects.smart_select()
+
+
+class SettingsView(LoginRequiredMixin, TemplateView):
+    template_name = 'accounts/settings.html'
+
+    def get(self, request, *args, **kwargs):
+        context = self.get_context_data(**kwargs)
+        context.update(
+            dict(password_form=ChangePasswordForm(request.user))
+        )
+        return self.render_to_response(context)

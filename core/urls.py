@@ -29,6 +29,7 @@ urlpatterns = [
     path('contact/', ContactView.as_view(), name='contact'),
     path('authentications/', include('authentications.urls')),
     path('api/', include('api.urls')),
+    path('accounts/', include('accounts.urls'), name='accounts'),
     path(
         'robots.txt',
         TemplateView.as_view(

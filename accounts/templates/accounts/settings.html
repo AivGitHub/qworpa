@@ -1,0 +1,114 @@
+{% extends 'accounts/base.html' %}
+
+{% load i18n markdown_extras static %}
+
+{% block title %}{% trans "Settings" %} | {% endblock %}
+
+{% block content_row_col %}
+<div class="d-none input-helpers">
+  {% csrf_token %}
+</div>
+<div class="card mb-4">
+  <div class="card-body">
+    <h1 class="card-title">{% trans "Settings" %}</h1>
+    <div class="card-text">
+      <h6>{% trans "PROFILE INFORMATION" %}</h6>
+      <hr />
+      <div class="form-group mb-2">
+        <label for="full-name">{% trans "Full Name" %}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="full-name"
+          aria-describedby="full-name-help"
+          placeholder="{% trans 'Enter your fullname' %}"
+          value="{{ request.user.get_full_name }}"
+          disabled
+        />
+        <small
+          id="full-name-help"
+          class="form-text text-muted"
+        >
+            {% trans "Your name may appear around here where you are mentioned." %}
+        </small>
+      </div>
+      <div class="form-group mb-2">
+        <label for="username">{% trans "Username" %}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="username"
+          placeholder="{% trans 'Enter your username' %}"
+          value="{{ request.user.username }}"
+          disabled
+        />
+      </div>
+      <div class="form-group mb-2">
+        <label for="email">{% trans "Email" %}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="email"
+          value="{{ request.user.email }}"
+          disabled
+        />
+      </div>
+      <div class="form-group mb-3">
+        <label for="date-of-birth">{% trans "Date of birth" %}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="date-of-birth"
+          placeholder="{% trans 'Enter your date of birth' %}"
+          value="{{ request.user.birth_date }}"
+          disabled
+        />
+      </div>
+      <h6>{% trans "SECURITY" %}</h6>
+      <hr />
+      <form id="change-password-form">
+        <div class="form-group">
+          <label class="d-block">{% trans "Change Password" %}</label>
+          <div
+            id="change-password-form-help-messages"
+            class="form-text text-muted"
+          >
+            <div class="alert alert-success password-success d-none">
+              {% trans "You successfully changed your password." %}
+            </div>
+            <div class="alert alert-danger password-error d-none">
+            </div>
+          </div>
+          {{ password_form.old_password }}
+          {{ password_form.new_password1 }}
+          {{ password_form.new_password2 }}
+        </div>
+        <div class="form-group pt-2">
+          <button class="btn btn-primary btn-lg" id="submit-button" type="submit">
+            {% trans "Change password" %}
+          </button>
+        </div>
+      </form>
+      <hr />
+      <div class="form-group mb-0">
+        <label class="d-block">{% trans "Sessions" %}</label>
+        <p class="font-size-sm text-secondary">
+          {% trans "Information about logins." %}
+        </p>
+        <ul class="list-group list-group-sm">
+          <li class="list-group-item has-icon">
+            <div>
+              <h6 class="mb-0">{% trans "Last login" %}</h6>
+              <small class="text-muted">{{ request.user.last_login }}</small>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+{% block extrascripts %}
+<script src="{% static 'accounts/js/settings.js' %}"></script>
+{% endblock %}

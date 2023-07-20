@@ -6,6 +6,7 @@ from django.contrib.auth import password_validation
 from django.contrib.auth.forms import (
     _unicode_ci_compare,  # noqa
     AuthenticationForm,
+    PasswordChangeForm,
     PasswordResetForm,
     SetPasswordForm,
     UserCreationForm,
@@ -255,3 +256,40 @@ class PasswordSetForm(SetPasswordForm):
         if commit:
             self.user.save()
         return self.user
+
+
+class ChangePasswordForm(PasswordChangeForm):
+    old_password = forms.CharField(
+        label=_('Old password'),
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'autocomplete': 'current-password',
+                'placeholder': _('Old password'),
+            }
+        ),
+    )
+    new_password1 = forms.CharField(
+        label=_('New password'),
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'autocomplete': 'new-password',
+                'placeholder': _('New password'),
+            }
+        ),
+        strip=False,
+        help_text=password_validation.password_validators_help_text_html(),
+    )
+    new_password2 = forms.CharField(
+        label=_('New password confirmation'),
+        strip=False,
+        widget=forms.PasswordInput(
+            attrs={
+                'class': 'form-control',
+                'autocomplete': 'new-password',
+                'placeholder': _('New password confirmation'),
+            }
+        ),
+    )

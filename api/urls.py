@@ -2,6 +2,7 @@ from django.urls import path
 
 from api.views import (
     add_post_comment,
+    change_password,
     delete_post,
     delete_post_comment,
     PostCommentsView,
@@ -29,5 +30,10 @@ urlpatterns = [
         'v1/posts/<str:url_hex>/comments/<int:comment_id>/delete/',
         delete_post_comment,
         name='delete-post-comment'
+    ),
+    path(
+        'v1/accounts/settings/passwords/change/',
+        change_password,
+        name='change-password'
     ),
 ]

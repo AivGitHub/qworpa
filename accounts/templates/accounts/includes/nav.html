@@ -81,6 +81,14 @@
             </li>
             <li>
               <a
+                class="dropdown-item{% if url_name == 'settings' %} active disabled{% endif %}"
+                href="{% url 'settings' %}"
+              >
+                {% trans "Settings" %}
+              </a>
+            </li>
+            <li>
+              <a
                 class="dropdown-item{% if url_name == 'my-post-list' %} active disabled{% endif %}"
                 href="{% url 'my-post-list' %}"
               >
