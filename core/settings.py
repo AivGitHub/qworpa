@@ -223,3 +223,7 @@ LOGGING = {
 }
 
 LOGIN_URL = '/authentications/sign-in/'
+
+REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'api.exception_handlers.api_exception_handler',
+}
