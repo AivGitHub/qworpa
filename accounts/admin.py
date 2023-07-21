@@ -1,5 +1,6 @@
 from django.conf import settings
 from django.contrib import admin, messages
+from django.contrib.admin.models import LogEntry
 from django.contrib.admin.options import IS_POPUP_VAR
 from django.contrib.admin.utils import unquote
 from django.contrib.auth import update_session_auth_hash
@@ -273,4 +274,27 @@ class FeedbackMessageAdmin(admin.ModelAdmin):
         'email',
         'name',
         'subject',
+    )
+
+
+@admin.register(LogEntry)
+class LogEntryAdmin(admin.ModelAdmin):
+    date_hierarchy = 'action_time'
+
+    list_filter = (
+        'user',
+        'content_type',
+        'action_flag',
+    )
+
+    search_fields = (
+        'object_repr',
+        'change_message',
+    )
+
+    list_display = (
+        'action_time',
+        'user',
+        'content_type',
+        'action_flag',
     )
