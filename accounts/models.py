@@ -2,6 +2,7 @@ from django.contrib.auth.models import (
     AbstractBaseUser,
     PermissionsMixin,
 )
+from django.core.exceptions import ValidationError
 from django.core.mail import send_mail
 from django.db import models
 from django.utils import timezone
@@ -101,6 +102,11 @@ class User(AbstractBaseUser, PermissionsMixin):
         Category,
         related_query_name='users',
         blank=True
+    )
+    subscribers = models.ManyToManyField(
+        'User',
+        blank=True,
+        related_name='subscriptions'
     )
 
     objects = UserManager()

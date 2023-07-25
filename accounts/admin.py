@@ -53,6 +53,14 @@ class UserAdmin(admin.ModelAdmin):
             }
         ),
         (
+            _('Information'),
+            {
+                'fields': (
+                    'subscribers',
+                ),
+            }
+        ),
+        (
             _('Permissions'),
             {
                 'fields': (
