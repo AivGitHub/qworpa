@@ -40,7 +40,7 @@ class PostManager(Manager):
 
         ids = random.choice(
             [post_data['id'] for post_data in posts],
-            size=max_quantity,
+            size=quantity,
             replace=False,
             p=PostManager.get_normalized_weights(posts)
         )
