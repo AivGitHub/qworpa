@@ -295,3 +295,31 @@ def process_change_password(request):
 def change_password(request, *args, **kwargs):
     process_change_password(request)
     return Response({}, status=status.HTTP_200_OK)
+
+
+def get_user_from_payload(payload):
+    try:
+        user_id = payload['user_id']
+    except KeyError:
+        raise PermissionDenied()
+    try:
+        return User.objects.get(id=user_id)
+    except User.DoesNotExist:
+        raise PermissionDenied()
+
+
+def process_toggle_subscription(request):
+    user = get_user_from_payload(request.POST)
+    if user == request.user:
+        raise PermissionDenied()
+    if user.subscribers.contains(request.user):
+        user.subscribers.remove(request.user)
+    else:
+        user.subscribers.add(request.user)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def toggle_subscription(request, *args, **kwargs):
+    process_toggle_subscription(request)
+    return Response({}, status=status.HTTP_200_OK)

@@ -9,6 +9,7 @@ from api.views import (
     PostNestedCommentsView,
     toggle_post_comment_like,
     toggle_post_like,
+    toggle_subscription,
 )
 
 urlpatterns = [
@@ -35,5 +36,10 @@ urlpatterns = [
         'v1/accounts/settings/passwords/change/',
         change_password,
         name='change-password'
+    ),
+    path(
+        'v1/accounts/subscriptions/toggle/',
+        toggle_subscription,
+        name='toggle-subscription'
     ),
 ]
