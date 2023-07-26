@@ -33,11 +33,7 @@
     {% endif %}
     <p class="text-muted">
       {% with subscribers_count=post.author.subscribers.count %}
-        {% if subscribers_count %}
-        {{ post.author.get_safe_full_name }} ({% trans "Subscribers" %}: {{ subscribers_count }}) | {{ post.created_at }}{% if post.is_draft %} | {% trans "(Draft)" %}{% endif %}
-        {% else %}
-        {{ post.author.get_safe_full_name }} | {{ post.created_at }}{% if post.is_draft %} | {% trans "(Draft)" %}{% endif %}
-        {% endif %}
+      {{ post.author.get_safe_full_name }} <span class="subscribers-main{% if not subscribers_count %} d-none{% endif %}">({% trans "Subscribers" %}: <span class="subscribers-amount" data-user-id="{{ post.author.id }}">{{ subscribers_count }}</span>) </span>| {{ post.created_at }}{% if post.is_draft %} | {% trans "(Draft)" %}{% endif %}
       {% endwith%}
     </p>
     {% if is_detailed %}
@@ -57,6 +53,7 @@
     {% endif %}
     <p>
     {% user_has_liked_post post user as has_liked_post %}
+    {% user_has_subscribed user post.author as has_subscribed %}
     {% with likes_count=post.likes.count comments_amount=post.comments.count %}
     <button
       type="button"
@@ -70,6 +67,20 @@
       <i class="bi bi-hand-thumbs-up"></i>
       <span class="likes-amount{% if not likes_count %} d-none{% endif %}">{{ likes_count }}</span>
     </button>
+    {% if user.id != post.author.id %}
+    <button
+      type="button"
+      class="subscription-toggler btn btn-{% if has_subscribed %}dark{% else %}light{% endif %}"
+      data-mdb-ripple-color="dark"
+      data-user-id="{{ post.author.id }}"
+      data-has-subscribed="{{ has_subscribed }}"
+      {% if not user.is_authenticated %} disabled{% endif %}
+    >
+      {% csrf_token %}
+      <span class="has-subscribed{% if not has_subscribed %} d-none{% endif %}">{% trans "Subscribed" %}</span>
+      <span class="has-not-subscribed{% if has_subscribed %} d-none{% endif %}">{% trans "Subscribe" %}</span>
+    </button>
+    {% endif %}
     {% if not is_detailed %}
     <a
       href="{% url 'post-details' post.url_hex %}"

@@ -34,6 +34,49 @@ $(document).ready(function() {
       alert("Something went wrong! Try again later.");
     });
   });
+  $(".subscription-toggler").click(function(e) {
+    let button = $(this);
+    let authorId = button.data("user-id");
+    let buttonsToToggle = $(".subscription-toggler").filter(function () {
+      return $(this).data("user-id") == authorId;
+    });
+    let hasSubscribed = button.find(".has-subscribed");
+    let hasNotSubscribed = button.find(".has-not-subscribed");
+    let subscribersAmount = $(".subscribers-amount").filter(function () {
+      return $(this).data("user-id") == authorId;
+    });
+    buttonsToToggle.prop("disabled", true);
+    $.ajax({
+      url: "/api/v1/accounts/subscriptions/toggle/",
+      method: "post",
+      data: {
+        "user_id": authorId,
+      },
+      headers: {
+        "X-CSRFToken": button.find("input[name='csrfmiddlewaretoken']").val(),
+      },
+    }).done(function() {
+      let counter = parseInt(subscribersAmount[0].innerText);
+      counter = (button.attr("data-has-subscribed") == "True") ? --counter : ++counter;
+      if (counter > 0) {
+        subscribersAmount.parent().removeClass("d-none");
+      }
+      if (counter === 0) {
+        subscribersAmount.parent().addClass("d-none");
+      }
+      subscribersAmount.text(counter);
+      buttonsToToggle.toggleClass("btn-dark btn-light");
+      buttonsToToggle.attr("data-has-subscribed", (button.attr("data-has-subscribed") == "True") ? "False" : "True");
+      hasSubscribed.toggleClass("d-none");
+      hasNotSubscribed.toggleClass("d-none");
+    }).fail(function() {
+      alert("Something went wrong! Try again later.");
+    }).always(function() {
+      setTimeout(function() {
+        buttonsToToggle.prop("disabled", false);
+      }, 2000);
+    });
+  });
   $(".post-like-toggler").click(function(e) {
     let button = $(this);
     let hasLiked = (button.data("has-liked") === "True");
