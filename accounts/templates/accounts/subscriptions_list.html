@@ -1,0 +1,37 @@
+{% extends "accounts/base.html" %}
+{% load i18n markdown_extras %}
+
+{% block title %}{% translate "Subscriptions" %} | {% endblock %}
+
+{% block content_row_col %}
+{% if not object_list %}
+<div class="card mb-4">
+  <div class="card-body">
+    <h2 class="card-title">{% trans "You don't have subscriptions yet!" %}</h2>
+    <div class="card-text">
+      <p>{% trans "All your subscriptions will be here." %}</p>
+    </div>
+  </div>
+</div>
+{% endif %}
+{% for author in object_list %}
+<div class="card mb-4">
+  <div class="card-body">
+    <h5 class="card-title">{{ author.get_safe_full_name }}</h5>
+    <div class="card-text">
+      {% trans "Subscribers" %}: {{ author.posts.count }} <> {% trans "Posts" %}: {{ author.subscribers.count }}
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}
+{% block content %}
+{{ block.super }}
+{% if page_obj.has_other_pages %}
+<div class="row">
+  <div class="col-md-9 mb-4 mt-1 left top">
+    {% include "accounts/includes/pagination.html" with page_obj=page_obj %}
+  </div>
+</div>
+{% endif %}
+{% endblock content %}

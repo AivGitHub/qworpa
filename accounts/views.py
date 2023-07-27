@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.core.mail import BadHeaderError, send_mail
+from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.shortcuts import render
 from django.template.loader import render_to_string
@@ -155,3 +156,12 @@ class SettingsView(LoginRequiredMixin, TemplateView):
             dict(password_form=ChangePasswordForm(request.user))
         )
         return self.render_to_response(context)
+
+
+class SubscriptionsView(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('sign-in')
+    template_name = 'accounts/subscriptions_list.html'
+    paginate_by = 20
+
+    def get_queryset(self, *args, **kwargs):
+        return self.request.user.subscriptions.all()

@@ -104,6 +104,14 @@
               </a>
             </li>
             <li>
+              <a
+                class="dropdown-item{% if url_name == 'subscriptions' %} active disabled{% endif %}"
+                href="{% url 'subscriptions' %}"
+              >
+                {% trans "Subscriptions" %}
+              </a>
+            </li>
+            <li>
               <hr class="dropdown-divider">
             </li>
             <li>
