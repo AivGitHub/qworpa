@@ -1,6 +1,14 @@
 from django.urls import path
 
-from blogs.views import FavoritesListView, MyPostListView, PostCreateView, PostDetailsView, PostEditView, PostListView
+from blogs.views import (
+    FavoritesListView,
+    MyPostListView,
+    PostCreateView,
+    PostDetailsView,
+    PostEditView,
+    PostListView,
+    UserPostListView,
+)
 
 urlpatterns = [
     path('', PostListView.as_view(), name='post-list'),
@@ -9,4 +17,5 @@ urlpatterns = [
     path('post/add/', PostCreateView.as_view(), name='add-post'),
     path('im/', MyPostListView.as_view(), name='my-post-list'),
     path('favorites/', FavoritesListView.as_view(), name='favorites'),
+    path('accounts/<int:user_id>/posts/', UserPostListView.as_view(), name='user-post-list'),
 ]

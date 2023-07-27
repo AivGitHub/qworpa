@@ -2,10 +2,12 @@ import logging
 
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse_lazy
 from django.utils.translation import gettext_lazy as _
 from django.views.generic import CreateView, DetailView, ListView, UpdateView
 
+from accounts.models import User
 from accounts.views import UserPermissionsMixin
 from blogs.forms import PostCreateForm, PostEditForm
 from blogs.models import Post
@@ -96,3 +98,17 @@ class FavoritesListView(LoginRequiredMixin, ListView):
     def get_queryset(self, *args, **kwargs):
         # TODO: Sure can be optimized.
         return Post.objects.filter(id__in=self.request.user.post_likes.values_list('post_id'), is_draft=False)
+
+
+class UserPostListView(LoginRequiredMixin, ListView):
+    login_url = reverse_lazy('sign-in')
+    template_name = 'blogs/post_list.html'
+    paginate_by = 5
+
+    def get_queryset(self, *args, **kwargs):
+        user_id = self.kwargs["user_id"]
+        try:
+            User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            raise PermissionDenied()
+        return Post.objects.filter(author=user_id, is_draft=False).order_by('-created_at')
