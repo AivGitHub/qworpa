@@ -17,7 +17,9 @@
 {% for author in object_list %}
 <div class="card mb-4">
   <div class="card-body">
-    <h5 class="card-title">{{ author.get_safe_full_name }}</h5>
+    <h5 class="card-title">
+      <a href="{% url 'user-post-list' user_id=author.id %}">{{ author.get_safe_full_name }}</a>
+    </h5>
     <div class="card-text">
       {% trans "Subscribers" %}: {{ author.posts.count }} <> {% trans "Posts" %}: {{ author.subscribers.count }}
     </div>

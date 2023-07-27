@@ -33,7 +33,7 @@
     {% endif %}
     <p class="text-muted">
       {% with subscribers_count=post.author.subscribers.count %}
-      {{ post.author.get_safe_full_name }} <span class="subscribers-main{% if not subscribers_count %} d-none{% endif %}">({% trans "Subscribers" %}: <span class="subscribers-amount" data-user-id="{{ post.author.id }}">{{ subscribers_count }}</span>) </span>| {{ post.created_at }}{% if post.is_draft %} | {% trans "(Draft)" %}{% endif %}
+      <a href="{% url 'user-post-list' user_id=post.author.id %}">{{ post.author.get_safe_full_name }}</a> <span class="subscribers-main{% if not subscribers_count %} d-none{% endif %}">({% trans "Subscribers" %}: <span class="subscribers-amount" data-user-id="{{ post.author.id }}">{{ subscribers_count }}</span>) </span>| {{ post.created_at }}{% if post.is_draft %} | {% trans "(Draft)" %}{% endif %}
       {% endwith%}
     </p>
     {% if is_detailed %}
