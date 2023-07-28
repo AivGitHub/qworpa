@@ -64,6 +64,16 @@
           disabled
         />
       </div>
+      <div class="form-group mb-3">
+        <label for="date-of-birth">{% trans "Subscribers" %}</label>
+        <input
+          type="text"
+          class="form-control"
+          id="subscribers-quantity"
+          value="{{ request.user.subscribers.count }}"
+          disabled
+        />
+      </div>
       <h6>{% trans "SECURITY" %}</h6>
       <hr />
       <form id="change-password-form">
