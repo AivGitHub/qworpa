@@ -39,6 +39,10 @@ class SignInForm(AuthenticationForm):
             }
         ),
     )
+    next = forms.CharField(
+        widget=forms.HiddenInput(),
+        required=False
+    )
 
     error_messages = {
         'invalid_login': _(
@@ -51,6 +55,10 @@ class SignInForm(AuthenticationForm):
                     "If you haven't received an email try to reset the password."
                 ),
     }
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.initial['next'] = self.request.GET.get("next", "")
 
     def confirm_login_allowed(self, user):
         if not user.is_active:

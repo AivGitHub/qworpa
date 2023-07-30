@@ -31,11 +31,9 @@ class AuthViewMixin:
 
 
 class SignInView(AuthViewMixin, LoginView):
+    next_page = reverse_lazy('feed')
     form_class = SignInForm
     template_name = 'authentications/sign_in.html'
-
-    def get_success_url(self):
-        return reverse_lazy('feed')
 
     def form_invalid(self, form: SignInForm):
         # Maybe here we need to use ``form.errors`` in templates, but for now ``django.contrib.messages`` are used.
