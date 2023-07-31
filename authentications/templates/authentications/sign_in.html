@@ -20,33 +20,17 @@
     <form action="." method="post">
       {% csrf_token %}
       {% for field in form %}
-      <div class="mb-2{% if field.field.widget.input_type == 'checkbox' %} form-check form-switch{% endif %}">
+      <div class="mb-2">
         {% if field.label and not field.is_hidden %}
         <label
           class="form-label"
           for="{{ field.id_for_label }}"
-        >{{ field.label }}{% if field.field.widget.input_type != 'checkbox' %}:{% endif %}
+        >{{ field.label }}:
         </label>
         {% endif %}
         {{ field }}
-        {% if field.help_text and not field.is_hidden %}
-        <span class="text-muted">
-          {{ field.help_text }}
-        </span>
-        {% endif %}
-        {{ field.errors }}
       </div>
       {% endfor %}
-      <div class="mb-2 d-grid d-none progress">
-        <div
-          class="progress-bar progress-bar-striped progress-bar-animated"
-          role="progressbar"
-          aria-valuenow="50"
-          aria-valuemin="0"
-          aria-valuemax="100"
-          style="width: 50%"
-        ></div>
-      </div>
       <div class="d-grid">
         <button class="btn btn-primary btn-lg" id="submit-button" type="submit">
           {% trans "Sign in" %}
