@@ -112,3 +112,24 @@ class UserPostListView(LoginRequiredMixin, ListView):
         except User.DoesNotExist:
             raise PermissionDenied()
         return Post.objects.filter(author=user_id, is_draft=False).order_by('-created_at')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        try:
+            user_id = self.kwargs["user_id"]
+        except KeyError:
+            raise PermissionDenied()
+        try:
+            user = User.objects.get(id=user_id)
+        except User.DoesNotExist:
+            raise PermissionDenied()
+
+        subscribers = user.subscribers.count()
+        subscribers_message = " (%s %s)" % (_("Subscribers:"), subscribers) if subscribers else ""
+        context['messages'] = [
+            "%s%s" % (
+                user.get_safe_full_name(),
+                subscribers_message
+            )
+        ]
+        return context
