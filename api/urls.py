@@ -1,10 +1,12 @@
 from django.urls import path
 
 from api.views import (
+    add_crypto_message,
     add_post_comment,
     change_password,
     delete_post,
     delete_post_comment,
+    CryptoMessagesView,
     PostCommentsView,
     PostNestedCommentsView,
     toggle_post_comment_like,
@@ -41,5 +43,15 @@ urlpatterns = [
         'v1/accounts/subscriptions/toggle/',
         toggle_subscription,
         name='toggle-subscription'
+    ),
+    path(
+        "v1/crypto/messages/add/",
+        add_crypto_message,
+        name="add-crypto-message"
+    ),
+    path(
+        "v1/crypto/messages/list/",
+        CryptoMessagesView.as_view(),
+        name="list-crypto-messages"
     ),
 ]

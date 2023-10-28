@@ -9,9 +9,11 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from accounts.models import User
 from blogs.models import Post, PostComment, PostCommentLike, PostLike
+from crypto.models import Message
 
 
 def _get_post_from_payload(payload: dict, user: User):
@@ -323,3 +325,36 @@ def process_toggle_subscription(request):
 def toggle_subscription(request, *args, **kwargs):
     process_toggle_subscription(request)
     return Response({}, status=status.HTTP_200_OK)
+
+
+class CryptoMessageRequestSerializer(serializers.ModelSerializer):
+    text = serializers.CharField(min_length=1, max_length=32000)
+
+    class Meta:
+        model = Message
+        fields = (
+            "hex",
+            "text",
+        )
+
+
+def process_add_crypto_message(data):
+    serializer = CryptoMessageRequestSerializer(data=data)
+    serializer.is_valid(raise_exception=True)
+    serializer.save()
+    return serializer.data
+
+
+@api_view(["POST"])
+def add_crypto_message(request, *args, **kwargs):
+    data = process_add_crypto_message(request.data)
+    return Response(data, status=status.HTTP_201_CREATED)
+
+
+class CryptoMessagesView(generics.ListAPIView):
+    serializer_class = CryptoMessageRequestSerializer
+    page_size_query_param = 'page_size'
+    pagination_class = Pagination
+
+    def get_queryset(self):
+        return Message.objects.all().order_by('-id')
