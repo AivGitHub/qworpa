@@ -335,6 +335,7 @@ class CryptoMessageRequestSerializer(serializers.ModelSerializer):
         fields = (
             "hex",
             "text",
+            "created_at",
         )
 
 
