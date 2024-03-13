@@ -4,7 +4,15 @@ All notable changes to this project will be documented in this file.
 
 This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-[0.10.0]: https://github.com/AivGitHub/qworpa/releases/tag/v0.10.0
+[0.10.1]: https://github.com/koldakov/qworpa/releases/tag/v0.10.1
+
+## [0.10.1] - 2024-03-13
+
+### Added
+
+- User information in page block.
+
+[0.10.0]: https://github.com/koldakov/qworpa/releases/tag/v0.10.0
 
 ## [0.10.0] - 2023-08-16
 
@@ -12,7 +20,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - User information in page block.
 
-[0.9.1]: https://github.com/AivGitHub/qworpa/releases/tag/v0.9.1
+[0.9.1]: https://github.com/koldakov/qworpa/releases/tag/v0.9.1
 
 ## [0.9.1] - 2023-07-30
 
@@ -20,7 +28,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Redirect URL after Sign In.
 
-[0.9.0]: https://github.com/AivGitHub/qworpa/releases/tag/v0.9.0
+[0.9.0]: https://github.com/koldakov/qworpa/releases/tag/v0.9.0
 
 ## [0.9.0] - 2023-07-28
 
@@ -28,7 +36,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Subscribers counter to settings page.
 
-[0.8.0]: https://github.com/AivGitHub/qworpa/releases/tag/v0.8.0
+[0.8.0]: https://github.com/koldakov/qworpa/releases/tag/v0.8.0
 
 ## [0.8.0] - 2023-07-27
 
@@ -37,7 +45,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Subscriptions page.
 - Page user posts.
 
-[0.7.0]: https://github.com/AivGitHub/qworpa/releases/tag/v0.7.0
+[0.7.0]: https://github.com/koldakov/qworpa/releases/tag/v0.7.0
 
 ## [0.7.0] - 2023-07-26
 
@@ -45,7 +53,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Subscribers and subscriptions.
 
-[0.6.0]: https://github.com/AivGitHub/qworpa/releases/tag/v0.6.0
+[0.6.0]: https://github.com/koldakov/qworpa/releases/tag/v0.6.0
 
 ## [0.6.0] - 2023-07-20
 
@@ -55,7 +63,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - User information in settings page.
 - Ability to change a password.
 
-[0.5.1]: https://github.com/AivGitHub/qworpa/releases/tag/v0.5.1
+[0.5.1]: https://github.com/koldakov/qworpa/releases/tag/v0.5.1
 
 ## [0.5.1] - 2023-07-19
 
@@ -63,7 +71,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Improve existing codebase.
 
-[0.5.0]: https://github.com/AivGitHub/qworpa/releases/tag/v0.5.0
+[0.5.0]: https://github.com/koldakov/qworpa/releases/tag/v0.5.0
 
 ## [0.5.0] - 2023-07-18
 
@@ -71,7 +79,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Start smart selecting posts in feed.
 
-[0.4.1]: https://github.com/AivGitHub/qworpa/releases/tag/v0.4.1
+[0.4.1]: https://github.com/koldakov/qworpa/releases/tag/v0.4.1
 
 ## [0.4.1] - 2023-07-17
 
@@ -79,7 +87,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Improve existing codebase.
 
-[0.4.0]: https://github.com/AivGitHub/qworpa/releases/tag/v0.4.0
+[0.4.0]: https://github.com/koldakov/qworpa/releases/tag/v0.4.0
 
 ## [0.4.0] - 2023-07-09
 
@@ -88,7 +96,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 - Update last news section.
 - Increase post preview text.
 
-[0.3.1]: https://github.com/AivGitHub/qworpa/releases/tag/v0.3.1
+[0.3.1]: https://github.com/koldakov/qworpa/releases/tag/v0.3.1
 
 ## [0.3.1] - 2023-07-08
 
@@ -96,7 +104,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Improve existing code.
 
-[0.3.0]: https://github.com/AivGitHub/qworpa/releases/tag/v0.3.0
+[0.3.0]: https://github.com/koldakov/qworpa/releases/tag/v0.3.0
 
 ## [0.3.0] - 2023-07-04
 
@@ -104,7 +112,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Cookies popup.
 
-[0.2.0]: https://github.com/AivGitHub/qworpa/releases/tag/v0.2.0
+[0.2.0]: https://github.com/koldakov/qworpa/releases/tag/v0.2.0
 
 ## [0.2.0] - 2023-06-21
 
@@ -112,7 +120,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Handle external images.
 
-[0.1.0]: https://github.com/AivGitHub/qworpa/releases/tag/v0.1.0
+[0.1.0]: https://github.com/koldakov/qworpa/releases/tag/v0.1.0
 
 ## [0.1.0] - 2023-06-20
 
@@ -120,7 +128,7 @@ This project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.htm
 
 - Post categories.
 
-[0.0.1]: https://github.com/AivGitHub/qworpa/releases/tag/v0.0.1
+[0.0.1]: https://github.com/koldakov/qworpa/releases/tag/v0.0.1
 
 ## [0.0.1] - 2023-06-19
 

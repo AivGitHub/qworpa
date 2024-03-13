@@ -69,7 +69,7 @@ There are my contacts:
 - [Linkedin](https://www.linkedin.com/in/aiv/)
 - [Send an Email](mailto:coldie322@gmail.com?subject=[GitHub]-qworpa)
 
-Project Link: https://github.com/AivGitHub/qworpa
+Project Link: https://github.com/koldakov/qworpa
 
 Best regards,
 

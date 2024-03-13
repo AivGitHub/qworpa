@@ -8,7 +8,7 @@
  * Or insert and load comment 1 by 1. Not sure what is the best approach, but any MR's are appreciated.
  *
  * @summary Simple comment system.
- * @link    https://github.com/AivGitHub/qworpa/blob/master/blogs/static/blogs/comments.js
+ * @link    https://github.com/koldakov/qworpa/blob/master/blogs/static/blogs/comments.js
  * @author  Ivan Koldakov <coldie322@gmail.com>
  *
  * Created at: 2023-05-29
